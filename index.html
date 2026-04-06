@@ -1,0 +1,2554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Financial Thinking – Trade Shares & Forex</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --dark-bg: #0d1117;
+            --nav-bg: #111820;
+            --nav-border: rgba(255, 255, 255, 0.06);
+            --accent: #0ecad4;
+            --accent-hover: #0ab5be;
+            --accent-btn: #0d5f8a;
+            --accent-btn-h: #0a4f75;
+            --text-main: #fff;
+            --text-muted: #8b97a8;
+            --text-link: #a8c8e8;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            background: var(--dark-bg);
+            color: var(--text-main);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden
+        }
+
+        /* ── NAVBAR ── */
+        #mainNav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--nav-bg);
+            border-bottom: 1px solid var(--nav-border);
+            transition: background .3s, box-shadow .3s
+        }
+
+        #mainNav.scrolled {
+            background: rgba(13, 17, 23, .97);
+            box-shadow: 0 4px 32px rgba(0, 0, 0, .45);
+            backdrop-filter: blur(12px)
+        }
+
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 68px
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            flex-shrink: 0
+        }
+
+        .nav-logo-icon {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 28px
+        }
+
+        .nav-logo-icon span {
+            display: block;
+            width: 6px;
+            background: var(--accent);
+            border-radius: 2px 2px 0 0
+        }
+
+        .nav-logo-icon span:nth-child(1) {
+            height: 14px
+        }
+
+        .nav-logo-icon span:nth-child(2) {
+            height: 21px
+        }
+
+        .nav-logo-icon span:nth-child(3) {
+            height: 28px
+        }
+
+        .nav-logo-text {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--text-main);
+            letter-spacing: -.02em
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            list-style: none;
+            margin: 0;
+            padding: 0
+        }
+
+        .nav-links a {
+            color: var(--text-link);
+            text-decoration: none;
+            font-size: .9rem;
+            padding: 6px 14px;
+            border-radius: 6px;
+            transition: color .2s, background .2s
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, .06)
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0
+        }
+
+        .btn-login {
+            color: var(--text-main);
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, .22);
+            font-family: 'DM Sans', sans-serif;
+            font-size: .875rem;
+            font-weight: 500;
+            padding: 7px 20px;
+            border-radius: 7px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: border-color .2s, background .2s, color .2s;
+            text-decoration: none;
+        }
+
+        .btn-login:hover {
+            border-color: var(--accent);
+            background: rgba(14, 202, 212, .08);
+            color: var(--accent)
+        }
+
+        .btn-cta {
+            color: #fff;
+            background: var(--accent);
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .875rem;
+            font-weight: 600;
+            padding: 8px 22px;
+            border-radius: 7px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background .2s, transform .15s;
+            text-decoration: none;
+        }
+
+        .btn-cta:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Mobile cluster — hidden on desktop */
+        .nav-mobile-right {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 36px;
+            height: 36px;
+            padding: 6px 8px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, .18);
+            border-radius: 7px;
+            cursor: pointer;
+            transition: border-color .2s
+        }
+
+        .hamburger:hover {
+            border-color: var(--accent)
+        }
+
+        .hamburger span {
+            display: block;
+            height: 2px;
+            background: var(--text-main);
+            border-radius: 2px;
+            transform-origin: center;
+            transition: transform .3s ease, opacity .3s ease
+        }
+
+        #mainNav.drawer-open .hamburger span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg)
+        }
+
+        #mainNav.drawer-open .hamburger span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0)
+        }
+
+        #mainNav.drawer-open .hamburger span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg)
+        }
+
+        /* Drawer — collapses to 0, expands when .drawer-open on <nav> */
+        .nav-drawer {
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            background: var(--nav-bg);
+            border-top: 1px solid transparent;
+            transition: max-height .38s cubic-bezier(.4, 0, .2, 1), opacity .28s ease, border-color .28s ease
+        }
+
+        #mainNav.drawer-open .nav-drawer {
+            max-height: 700px;
+            opacity: 1;
+            border-color: var(--nav-border)
+        }
+
+        .drawer-links {
+            list-style: none;
+            margin: 0;
+            padding: 8px 0 0
+        }
+
+        .drawer-links li {
+            border-bottom: 1px solid var(--nav-border)
+        }
+
+        .drawer-links li:last-child {
+            border-bottom: none
+        }
+
+        .drawer-links a {
+            display: block;
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 15px 24px;
+            transition: background .2s, padding-left .25s
+        }
+
+        .drawer-links a:hover {
+            background: rgba(14, 202, 212, .06);
+            padding-left: 34px
+        }
+
+        .drawer-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 16px 24px 24px
+        }
+
+        .drawer-footer .btn-login,
+        .drawer-footer .btn-cta {
+            width: 100%;
+            text-align: center;
+            font-size: .95rem;
+            padding: 12px;
+            border-radius: 8px
+        }
+
+        /* Breakpoints */
+        @media(min-width:992px) {
+            .nav-links {
+                display: flex
+            }
+
+            .nav-cta {
+                display: flex
+            }
+
+            .nav-mobile-right {
+                display: none !important
+            }
+
+            .nav-drawer {
+                display: none !important
+            }
+        }
+
+        @media(max-width:991.98px) {
+            .nav-links {
+                display: none
+            }
+
+            .nav-cta {
+                display: none
+            }
+
+            .nav-mobile-right {
+                display: flex
+            }
+        }
+
+        /* ── HERO ── */
+        #hero {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden
+        }
+
+        #heroBg {
+            position: absolute;
+            inset: 0;
+            z-index: 0
+        }
+
+        #heroVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center
+        }
+
+        #heroFallback {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: radial-gradient(ellipse at 20% 60%, rgba(13, 95, 138, .35) 0%, transparent 55%), radial-gradient(ellipse at 75% 30%, rgba(14, 202, 212, .12) 0%, transparent 50%), linear-gradient(160deg, #0a1628 0%, #0d1117 50%, #071020 100%);
+            transition: opacity .6s
+        }
+
+        #heroFallback::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(14, 202, 212, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(14, 202, 212, .04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 0%, transparent 75%)
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: linear-gradient(100deg, rgba(10, 16, 26, .78) 0%, rgba(10, 16, 26, .5) 55%, rgba(10, 16, 26, .2) 100%)
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            padding-top: 68px
+        }
+
+        /* .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(14, 202, 212, .1);
+            border: 1px solid rgba(14, 202, 212, .25);
+            border-radius: 100px;
+            padding: 5px 14px;
+            font-size: .75rem;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            margin-bottom: 24px
+        } */
+
+        .hero-tag::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .4;
+                transform: scale(.8)
+            }
+        }
+
+        .hero-title {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2.4rem, 5.5vw, 4rem);
+            line-height: 1.08;
+            letter-spacing: -.03em;
+            color: #fff;
+            margin-bottom: 20px
+        }
+
+        .hero-title .accent-word {
+            color: var(--accent)
+        }
+
+        .hero-sub {
+            font-size: clamp(.95rem, 1.5vw, 1.1rem);
+            color: var(--text-muted);
+            line-height: 1.7;
+            max-width: 480px;
+            margin-bottom: 36px;
+            font-weight: 300
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 14px
+        }
+
+        .hero-btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-btn);
+            color: #fff;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 14px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: background .2s, transform .2s, box-shadow .2s
+        }
+
+        .hero-btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, .12) 0%, transparent 60%);
+            pointer-events: none
+        }
+
+        .hero-btn-primary:hover {
+            background: var(--accent-btn-h);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(13, 95, 138, .55)
+        }
+
+        .hero-btn-primary svg {
+            flex-shrink: 0;
+            transition: transform .2s
+        }
+
+        .hero-btn-primary:hover svg {
+            transform: translateX(3px)
+        }
+
+        .hero-btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            background: transparent;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .95rem;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 4px 0;
+            transition: color .2s
+        }
+
+        .hero-btn-ghost:hover {
+            color: var(--text-main)
+        }
+
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            margin-top: 56px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255, 255, 255, .07)
+        }
+
+        .stat-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -.02em;
+            line-height: 1
+        }
+
+        .stat-number span {
+            color: var(--accent);
+            font-size: 1.1rem;
+            vertical-align: super
+        }
+
+        .stat-label {
+            font-size: .78rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: .07em
+        }
+
+        .ticker-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 4;
+            background: rgba(13, 17, 23, .85);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, .07);
+            height: 42px;
+            display: flex;
+            align-items: center;
+            overflow: hidden
+        }
+
+        .ticker-track {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            white-space: nowrap;
+            animation: tickerScroll 28s linear infinite
+        }
+
+        @keyframes tickerScroll {
+            0% {
+                transform: translateX(0)
+            }
+
+            100% {
+                transform: translateX(-50%)
+            }
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .78rem;
+            color: var(--text-muted)
+        }
+
+        .ticker-sym {
+            font-weight: 600;
+            color: var(--text-main)
+        }
+
+        .ticker-price {
+            font-weight: 500;
+            color: var(--text-main)
+        }
+
+        .ticker-up {
+            color: #22c55e
+        }
+
+        .ticker-down {
+            color: #ef4444
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 60px;
+            right: 40px;
+            z-index: 4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: rgba(255, 255, 255, .3);
+            font-size: .68rem;
+            letter-spacing: .12em;
+            text-transform: uppercase
+        }
+
+        .scroll-hint .arrow {
+            width: 1px;
+            height: 36px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, .3), transparent);
+            animation: scrollArrow 1.8s ease-in-out infinite
+        }
+
+        @keyframes scrollArrow {
+
+            0%,
+            100% {
+                transform: scaleY(1);
+                opacity: .3
+            }
+
+            50% {
+                transform: scaleY(.5);
+                opacity: .7
+            }
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(28px);
+            animation: fadeUp .75s ease forwards
+        }
+
+        .fade-up:nth-child(1) {
+            animation-delay: .1s
+        }
+
+        .fade-up:nth-child(2) {
+            animation-delay: .25s
+        }
+
+        .fade-up:nth-child(3) {
+            animation-delay: .4s
+        }
+
+        .fade-up:nth-child(4) {
+            animation-delay: .55s
+        }
+
+        .fade-up:nth-child(5) {
+            animation-delay: .7s
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @media(max-width:767px) {
+            .hero-stats {
+                gap: 20px
+            }
+
+            .scroll-hint {
+                display: none
+            }
+        }
+
+
+        /* the floater */
+        /* ── DASHBOARD PREVIEW SECTION ── */
+.dashboard-section {
+    position: relative;
+    padding: 120px 0;
+    background: var(--dark-bg);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 600px;
+}
+
+/* Subtle teal glow in the center behind text */
+.dashboard-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(14, 202, 212, 0.08) 0%, transparent 70%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.dashboard-container {
+    position: relative;
+    z-index: 5;
+}
+
+.dashboard-text-content {
+    position: relative;
+    z-index: 10;
+}
+
+.dashboard-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.dashboard-sub {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.dashboard-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: opacity 0.2s;
+    border-bottom: 1px solid transparent;
+}
+
+.dashboard-link:hover {
+    border-bottom: 1px solid var(--accent);
+    opacity: 0.8;
+   
+}
+
+/* Floating Icons Styling */
+.icon-cloud-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.floating-icon {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    opacity: 0.6;
+    filter: grayscale(0.2);
+    transition: transform 0.3s ease;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.floating-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    
+}
+
+/* Different Animation Speeds for Parallax Effect */
+.floating-icon:nth-child(odd) {
+    animation: floatVertical 6s ease-in-out infinite;
+}
+
+.floating-icon:nth-child(even) {
+    animation: floatVertical 8s ease-in-out infinite reverse;
+}
+
+@keyframes floatVertical {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .dashboard-section {
+        padding: 80px 0;
+    }
+    .floating-icon {
+        width: 35px;
+        height: 35px;
+        opacity: 0.4;
+    }
+}
+
+
+/* ── Diverse Trading Products ── */
+  #diverse {
+    padding: 96px 0 104px;
+    background: var(--dark-bg);
+  }
+ 
+  .diverse-heading {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .diverse-heading h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .diverse-heading p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+ 
+  /* Card grid */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+ 
+  /* Individual card */
+  .product-card {
+    background: #0e1622;
+    border-radius: 14px;
+    padding: 32px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+  }
+ 
+  /* Coloured bottom bar — unique per card */
+  .product-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    border-radius: 0 0 14px 14px;
+  }
+  .card-forex::after   { background: #2563eb; }   /* blue  */
+  .card-shares::after  { background: #16a34a; }   /* green */
+  .card-energies::after{ background: #ca8a04; }   /* amber */
+  .card-indices::after { background: #1d4ed8; }   /* indigo */
+ 
+  /* Left border glow line */
+  .product-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 1px;
+    height: 100%;
+  }
+  .card-forex::before    { background: linear-gradient(to bottom, #2563eb 0%, transparent 80%); }
+  .card-shares::before   { background: linear-gradient(to bottom, #16a34a 0%, transparent 80%); }
+  .card-energies::before { background: linear-gradient(to bottom, #ca8a04 0%, transparent 80%); }
+  .card-indices::before  { background: linear-gradient(to bottom, #1d4ed8 0%, transparent 80%); }
+ 
+  /* Icon circle */
+  .card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    flex-shrink: 0;
+  }
+  .card-forex    .card-icon { background: rgba(37,  99, 235, 0.18); }
+  .card-shares   .card-icon { background: rgba(22, 163,  74, 0.18); }
+  .card-energies .card-icon { background: rgba(202,138,   4, 0.18); }
+  .card-indices  .card-icon { background: rgba(29,  78, 216, 0.18); }
+ 
+  .card-icon svg { width: 24px; height: 24px; }
+  .card-forex    .card-icon svg { color: #3b82f6; }
+  .card-shares   .card-icon svg { color: #22c55e; }
+  .card-energies .card-icon svg { color: #eab308; }
+  .card-indices  .card-icon svg { color: #60a5fa; }
+ 
+  /* Text */
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--text-main);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .card-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 24px;
+  }
+ 
+  /* Explore link */
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: gap 0.2s ease, opacity 0.2s;
+    margin-top: auto;
+  }
+  .card-link:hover { opacity: 0.8; gap: 10px; }
+  .card-forex    .card-link { color: #3b82f6; }
+  .card-shares   .card-link { color: #22c55e; }
+  .card-energies .card-link { color: #eab308; }
+  .card-indices  .card-link { color: #60a5fa; }
+ 
+  /* Responsive */
+  @media (max-width: 1199.98px) {
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 575.98px) {
+    .products-grid { grid-template-columns: 1fr; }
+    #diverse { padding: 64px 0 72px; }
+  }
+
+
+   /* ── How It Works ── */
+  #how-it-works {
+    padding: 96px 0 104px;
+    background: var(--dark-bg);
+  }
+ 
+  /* Section header */
+  .hiw-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+ 
+  .hiw-badge {
+    display: inline-block;
+    background: rgba(37, 99, 235, 0.18);
+    border: 1px solid rgba(37, 99, 235, 0.35);
+    color: #60a5fa;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+ 
+  .hiw-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+    color: white;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+ 
+  .hiw-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+ 
+  /* Step cards grid */
+  .hiw-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+ 
+  /* Single step card */
+  .hiw-card {
+    background: #111a27;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 16px;
+    padding: 48px 36px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .hiw-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 56px rgba(0, 0, 0, 0.45);
+    border-color: rgba(59, 130, 246, 0.25);
+  }
+ 
+  /* Step number circle */
+  .hiw-step-num {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #2563eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: #fff;
+    margin-bottom: 28px;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.12);
+  }
+ 
+  /* Step title */
+  .hiw-step-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--text-main);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+ 
+  /* Blue underline below title */
+  .hiw-step-title::after {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 3px;
+    background: #2563eb;
+    border-radius: 2px;
+    margin: 8px auto 0;
+  }
+ 
+  /* Description */
+  .hiw-step-desc {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin: 20px 0 32px;
+    flex: 1;
+  }
+ 
+  /* CTA button */
+  .hiw-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 13px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    width: 100%;
+    justify-content: center;
+  }
+  .hiw-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.45);
+    color: #fff;
+  }
+ 
+  /* Responsive */
+  @media (max-width: 991.98px) {
+    .hiw-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+    #how-it-works { padding: 64px 0 72px; }
+  }
+  @media (min-width: 576px) and (max-width: 991.98px) {
+    .hiw-grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+  }
+   /* ── Why Trade With Us ── */
+  #why-us {
+    padding: 96px 0 104px;
+    background: var(--nav-bg); /* slightly lighter than --dark-bg, matches design */
+    border-top: 1px solid var(--nav-border);
+    border-bottom: 1px solid var(--nav-border);
+  }
+ 
+  /* Header */
+  .why-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .why-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.9rem, 3.5vw, 2.5rem);
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .why-header p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+ 
+  /* 4-column grid */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+ 
+  /* Individual feature item */
+  .why-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 32px 24px;
+    border-radius: 12px;
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+  .why-item:hover {
+    background: rgba(255, 255, 255, 0.03);
+    transform: translateY(-4px);
+  }
+ 
+  /* Icon circle */
+  .why-icon {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    flex-shrink: 0;
+  }
+  .why-icon svg {
+    width: 28px;
+    height: 28px;
+    color: #fff;
+  }
+ 
+  /* Each item's unique icon colour */
+  .why-tools     .why-icon { background: #3b67e8; }
+  .why-products  .why-icon { background: #22a858; }
+  .why-platforms .why-icon { background: #3b9ee8; }
+  .why-funding   .why-icon { background: #ca8a04; }
+ 
+  /* Title */
+  .why-item-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-main);
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+ 
+  /* Description */
+  .why-item-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 220px;
+  }
+ 
+  /* Responsive */
+  @media (max-width: 991.98px) {
+    .why-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    #why-us { padding: 64px 0 72px; }
+  }
+  @media (max-width: 575.98px) {
+    .why-grid { grid-template-columns: 1fr; }
+  }
+   /* ── Switch To Primestone ── */
+  #switch-to {
+    padding: 96px 0 108px;
+    background: var(--dark-bg);
+  }
+ 
+  /* Header */
+  .switch-header {
+    text-align: center;
+    margin-bottom: 72px;
+  }
+  .switch-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    color: var(--text-main);
+    letter-spacing: -0.025em;
+    margin-bottom: 16px;
+  }
+  .switch-header p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+ 
+  /* 3-col grid, two rows */
+  .switch-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 64px;
+    column-gap: 32px;
+  }
+ 
+  /* Individual feature */
+  .switch-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 16px;
+    transition: transform 0.25s ease;
+  }
+  .switch-item:hover {
+    transform: translateY(-4px);
+  }
+ 
+  /* Icon wrapper — outlined square style */
+  .switch-icon {
+    width: 72px;
+    height: 72px;
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    background: rgba(255,255,255,0.03);
+    transition: border-color 0.25s, background 0.25s;
+  }
+  .switch-item:hover .switch-icon {
+    border-color: var(--accent);
+    background: rgba(14, 202, 212, 0.06);
+  }
+  .switch-icon svg {
+    width: 32px;
+    height: 32px;
+    color: var(--text-muted);
+    transition: color 0.25s;
+  }
+  .switch-item:hover .switch-icon svg {
+    color: var(--accent);
+  }
+ 
+  /* Item title */
+  .switch-item-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text-main);
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+ 
+  /* Item description */
+  .switch-item-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    font-weight: 300;
+    max-width: 260px;
+    margin: 0 auto;
+  }
+ 
+  /* Divider between rows */
+  .switch-divider {
+    grid-column: 1 / -1;
+    height: 1px;
+    background: var(--nav-border);
+    margin: -32px 0;
+  }
+ 
+  /* Responsive */
+  @media (max-width: 991.98px) {
+    .switch-grid {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 48px;
+    }
+    .switch-divider { display: none; }
+    #switch-to { padding: 64px 0 72px; }
+  }
+  @media (max-width: 575.98px) {
+    .switch-grid { grid-template-columns: 1fr; row-gap: 40px; }
+  }
+  /* ── Deposit With Crypto ── */
+  #crypto-deposit {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 110px 24px 80px;
+    overflow: hidden;
+ 
+    /* 👇 Replace with your actual background image path */
+    background-image: url('assets/crypto-bg.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+ 
+  /* Subtle dark vignette so the header text stays legible */
+  #crypto-deposit::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(6, 8, 14, 0.68) 0%,
+      rgba(6, 8, 14, 0.30) 45%,
+      rgba(6, 8, 14, 0.10) 100%
+    );
+    z-index: 0;
+  }
+ 
+  /* All direct children sit above the overlay */
+  #crypto-deposit > * { position: relative; z-index: 1; }
+ 
+  /* ── Header ── */
+  .cd-header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+ 
+  /* "DEPOSIT WITH CRYPTO" eyebrow with side rules */
+  .cd-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-bottom: 22px;
+  }
+  .cd-eyebrow span {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .cd-eyebrow::before,
+  .cd-eyebrow::after {
+    content: '';
+    flex: 1;
+    max-width: 130px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+  }
+ 
+  .cd-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    color: var(--text-main);
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+ 
+  .cd-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.65;
+    margin-bottom: 36px;
+  }
+ 
+  .cd-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-btn);
+    color: #fff;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 14px 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cd-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .cd-btn:hover {
+    background: var(--accent-btn-h);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(13, 95, 138, 0.55);
+    color: #fff;
+  }
+ 
+  /* ── Responsive ── */
+  @media (max-width: 767px) {
+    #crypto-deposit {
+      padding: 80px 16px 60px;
+      min-height: 80vh;
+      /* On mobile show the top portion of the image (where the coins are) */
+      background-position: center top;
+    }
+    .cd-eyebrow::before,
+    .cd-eyebrow::after { max-width: 60px; }
+  }
+  /* ── Superior Trading ── */
+  #superior {
+    padding: 96px 0 108px;
+    background: var(--dark-bg);
+  }
+ 
+  /* ── Section header ── */
+  .sup-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .sup-badge {
+    display: inline-block;
+    background: rgba(37, 99, 235, 0.15);
+    border: 1px solid rgba(37, 99, 235, 0.35);
+    color: #60a5fa;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 100px;
+    margin-bottom: 18px;
+  }
+  .sup-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    color: var(--text-main);
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .sup-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+ 
+  /* ── Two-column layout ── */
+  .sup-body {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 28px;
+    align-items: start;
+  }
+ 
+  /* ── Left: Premium conditions card ── */
+  .sup-conditions {
+    background: #0e1622;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 36px 32px 40px;
+    height: 100%;
+  }
+  .sup-conditions h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--text-main);
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+ 
+  .sup-features { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px; }
+  .sup-feature  { display: flex; align-items: flex-start; gap: 14px; }
+ 
+  .sup-check {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #16a34a;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .sup-check svg { width: 12px; height: 12px; color: #fff; }
+ 
+  .sup-feature-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+  .sup-feature-text strong { color: var(--text-main); font-weight: 600; }
+ 
+  .sup-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 13px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 32px;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .sup-cta:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37,99,235,0.45);
+    color: #fff;
+  }
+ 
+  /* ── Superior Trading ── */
+  #superior {
+    padding: 96px 0 108px;
+    background: var(--dark-bg);
+  }
+ 
+  /* ── Section header ── */
+  .sup-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .sup-badge {
+    display: inline-block;
+    background: rgba(37, 99, 235, 0.15);
+    border: 1px solid rgba(37, 99, 235, 0.35);
+    color: #60a5fa;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 100px;
+    margin-bottom: 18px;
+  }
+  .sup-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    color: var(--text-main);
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .sup-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+ 
+  /* ── Two-column body ── */
+  .sup-body {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 28px;
+    align-items: stretch;
+  }
+ 
+  /* ── LEFT: Premium conditions card ── */
+  .sup-conditions {
+    background: #0e1622;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 36px 32px 40px;
+    display: flex;
+    flex-direction: column;
+  }
+  .sup-conditions h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--text-main);
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+ 
+  .sup-features {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+  }
+  .sup-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .sup-check {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #16a34a;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .sup-check svg { width: 11px; height: 11px; color: #fff; }
+  .sup-feature-text {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+  .sup-feature-text strong { color: var(--text-main); font-weight: 600; }
+ 
+  .sup-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 13px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 32px;
+    align-self: flex-start;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .sup-cta:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37,99,235,0.45);
+    color: #fff;
+  }
+ 
+  /* ── RIGHT: TradingView widget wrapper ── */
+  .sup-tv-wrap {
+    background: #0e1622;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 480px;
+  }
+ 
+  .sup-tv-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+  .sup-tv-head h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text-main);
+    letter-spacing: -0.01em;
+  }
+  .sup-live-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #22c55e;
+    letter-spacing: 0.06em;
+  }
+  .sup-live-badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: livePulse 1.8s ease-in-out infinite;
+  }
+  @keyframes livePulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50%      { opacity:0.4; transform:scale(0.7); }
+  }
+ 
+  /* TradingView iframe container — fills the remaining card height */
+  .sup-tv-body {
+    flex: 1;
+    min-height: 420px;
+  }
+  .sup-tv-body .tradingview-widget-container,
+  .sup-tv-body .tradingview-widget-container__widget {
+    height: 100% !important;
+    width: 100% !important;
+  }
+ 
+  /* ── Responsive ── */
+  @media (max-width: 991.98px) {
+    .sup-body { grid-template-columns: 1fr; }
+    .sup-tv-wrap { min-height: 420px; }
+    #superior { padding: 64px 0 72px; }
+  }
+  /* ── ADVANCED TRADING TOOLS ── */
+#advanced-tools {
+  padding: 90px 0;
+  background: var(--dark-bg);
+}
+
+.tools-header {
+  text-align: center;
+  margin-bottom: 52px;
+}
+
+.tools-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.tools-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.tool-card {
+  background: #111820;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 32px 24px;
+  transition: border-color .25s, transform .25s;
+}
+
+.tool-card:hover {
+  border-color: rgba(14, 202, 212, 0.3);
+  transform: translateY(-3px);
+}
+
+.tool-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.tool-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.tool-icon--blue   { background: #3b5bdb; }
+.tool-icon--purple { background: #6741d9; }
+.tool-icon--cyan   { background: #1098ad; }
+.tool-icon--teal   { background: #0ca678; }
+
+.tool-card-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  margin-bottom: 14px;
+  color: var(--text-main);
+}
+
+.tool-card-title strong {
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.tool-card-title span {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.tool-card-desc {
+  font-size: .9rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .tools-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 575px) {
+  .tools-grid { grid-template-columns: 1fr; }
+}
+    </style>
+</head>
+
+<body>
+
+    <!--
+  ONE <nav> element.
+  • .nav-links / .nav-cta        = desktop (CSS hides on mobile)
+  • .nav-mobile-right            = mobile  (CSS hides on desktop)
+  • .nav-drawer                  = dropdown inside the nav
+  JS only toggles .drawer-open on <nav> — CSS handles the animation.
+-->
+    <nav id="mainNav" role="navigation" aria-label="Main navigation">
+        
+
+        <!-- Always-visible top strip -->
+        <div class="nav-bar">
+
+            <a href="#" class="nav-logo" aria-label="Home">
+                <div class="nav-logo-icon" aria-hidden="true"><span></span><span></span><span></span></div>
+                <span class="nav-logo-text">PrimeStone</span>
+            </a>
+
+            <!-- DESKTOP: centre links -->
+            <ul class="nav-links" aria-label="Site links">
+                <li><a href="#">Features</a></li>
+                <li><a href="#">How it works</a></li>
+                <li><a href="#">Why Choose Us</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">Reviews</a></li>
+            </ul>
+            
+
+            <!-- DESKTOP: right CTA -->
+            <div class="nav-cta">
+                <a class="btn-login" type="button">Log in</a>
+                <a class="btn-cta" type="button">Sign up</a>
+            </div>
+
+            <!-- MOBILE: login + hamburger -->
+            <div class="nav-mobile-right">
+                <button class="btn-login" type="button">Log in</button>
+                <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Toggle menu" aria-expanded="false"
+                    aria-controls="navDrawer">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- MOBILE: dropdown drawer (inside this same nav) -->
+        <div class="nav-drawer" id="navDrawer" aria-hidden="true">
+            <ul class="drawer-links">
+                <li><a href="#">Features</a></li>
+                <li><a href="#">How it works</a></li>
+                <li><a href="#">Why Choose Us</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">Reviews</a></li>
+            </ul>
+            <div class="drawer-footer">
+                <a class="btn-login" type="button">Log in</a>
+                <a class="btn-cta" type="button">Sign Up</a>
+            </div>
+        </div>
+
+    </nav>
+
+
+    <!-- HERO SECTION -->
+    <section id="hero" aria-label="Hero">
+
+        <div id="heroBg">
+            <video id="heroVideo" autoplay muted loop playsinline poster="" aria-hidden="true">
+                <source src="your-video.webm" type="video/webm" />
+                <source src="assets/Hero-Video.mp4" type="video/mp4" />
+            </video>
+        </div>
+
+        <div id="heroFallback" aria-hidden="true"></div>
+        <div class="hero-overlay" aria-hidden="true"></div>
+
+        <div class="container hero-content py-5 mt-4">
+            <div class="row">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+
+                    <!-- <div class="fade-up"><span class="hero-tag">Live Markets</span></div> -->
+
+                    <h1 class="hero-title fade-up">
+                        Trade Shares and Forex<br>
+                        with <span class="accent-word">Financial</span> Thinking
+                    </h1>
+
+                    <p class="hero-sub fade-up">
+                        Access 40,000+ instruments – across asset classes – to trade,
+                        hedge and invest from a single account.
+                    </p>
+
+                    <div class="hero-actions fade-up">
+                        <a href="#" class="hero-btn-primary">
+                            Open an Account
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                        <!-- <a href="#" class="hero-btn-ghost">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                <circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="1.4" />
+                                <path d="M7 6l5 3-5 3V6z" fill="currentColor" />
+                            </svg>
+                            Watch how it works
+                        </a> -->
+                    </div>
+
+                    <!-- <div class="hero-stats fade-up">
+                        <div class="stat-item">
+                            <div class="stat-number">40K<span>+</span></div>
+                            <div class="stat-label">Instruments</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">180<span>+</span></div>
+                            <div class="stat-label">Countries</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">24<span>/5</span></div>
+                            <div class="stat-label">Market Access</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">1<span>x</span></div>
+                            <div class="stat-label">Single Account</div>
+                        </div>
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget"></div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+  {
+  "symbols": [
+    { "proName": "FOREXCOM:SPX500", "title": "S&P 500 Index" },
+    { "proName": "FOREXCOM:NSXUSD", "title": "US 100" },
+    { "proName": "FX_IDC:EURUSD", "title": "EUR to USD" },
+    { "proName": "BITSTAMP:BTCUSD", "title": "Bitcoin" },
+    { "proName": "BITSTAMP:ETHUSD", "title": "Ethereum" },
+    { "description": "Apple", "proName": "NASDAQ:AAPL" },
+    { "description": "Nvidia", "proName": "NASDAQ:NVDA" },
+    { "description": "Gold", "proName": "TVC:GOLD" }
+  ],
+  "showSymbolLogo": true,
+  "isTransparent": true,
+  "displayMode": "adaptive",
+  "colorTheme": "dark",
+  "locale": "en"
+}
+  </script>
+</div>
+
+<section id="dashboard-preview" class="dashboard-section">
+    <div class="dashboard-container container">
+        
+        <div class="icon-cloud-wrapper">
+            <div class="floating-icon icon-btc" style="top: 5%; left: 50%;"><img src="assets/bitcoin.png" ></div>
+            <div class="floating-icon icon-eth" style="top: 15%; left: 70%;"><img src="assets/bitfinex.png" ></div>
+            <div class="floating-icon icon-ada" style="top: 10%; left: 30%;"><img src="assets/ethereum.png" ></div>
+            <div class="floating-icon icon-sol" style="bottom: 15%; left: 20%;"><img src="assets/solana.png" alt="SOL"></div>
+            <div class="floating-icon icon-dot" style="top: 40%; left: 15%;"><img src="assets/terra.png" alt="DOT"></div>
+            <div class="floating-icon icon-fox" style="bottom: 20%; left: 60%;"><img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" alt="MetaMask"></div>
+            <div class="floating-icon icon-xrp" style="bottom: 30%; left: 80%;"><img src="assets/tron.png" ></div>
+            <div class="floating-icon icon-link" style="top: 60%; left: 85%;"><img src="assets/litecoin.png" alt="LINK"></div>
+        </div>
+
+        <div class="dashboard-text-content text-center">
+            <h2 class="dashboard-title">View all your coins <br>in one <span class="accent-word">simple dashboard</span></h2>
+            <p class="dashboard-sub">Add up to 30 API connections and unlimited <br>manual wallets and exchanges.</p>
+            <a href="#" class="dashboard-link">View all our connections</a>
+        </div>
+        
+    </div>
+</section>
+
+<!-- ═══════════ HTML — paste into your <body> ═══════════ -->
+<section id="diverse" aria-labelledby="diverse-title">
+  <div class="container">
+
+    <div class="diverse-heading">
+      <h2 id="diverse-title">Diverse Trading Products</h2>
+      <p>Access global markets with competitive conditions</p>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- Forex -->
+      <div class="product-card card-forex">
+        <div class="card-icon" aria-hidden="true">
+          <!-- Globe icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <div class="card-title">Forex</div>
+        <p class="card-desc">Trade 70+ major, minor &amp; exotic currency pairs with competitive spreads and conditions</p>
+        <a href="#" class="card-link">Explore Forex &rarr;</a>
+      </div>
+
+      <!-- Shares -->
+      <div class="product-card card-shares">
+        <div class="card-icon" aria-hidden="true">
+          <!-- Trending up icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+            <polyline points="16 7 22 7 22 13"/>
+          </svg>
+        </div>
+        <div class="card-title">Shares</div>
+        <p class="card-desc">Access hundreds of public companies from the US, UK, Germany and more markets</p>
+        <a href="#" class="card-link">Explore Shares &rarr;</a>
+      </div>
+
+      <!-- Energies -->
+      <div class="product-card card-energies">
+        <div class="card-icon" aria-hidden="true">
+          <!-- Flame / energy icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2c0 0-5 4.5-5 9a5 5 0 0 0 10 0c0-2-1-4-2.5-5.5C14 7 13 9 12 9c-1 0-2-1-2-2.5C10 5 12 2 12 2z"/>
+          </svg>
+        </div>
+        <div class="card-title">Energies</div>
+        <p class="card-desc">Discover opportunities on UK &amp; US Crude Oil as well as Natural Gas with tight spreads</p>
+        <a href="#" class="card-link">Explore Energies &rarr;</a>
+      </div>
+
+      <!-- Indices -->
+      <div class="product-card card-indices">
+        <div class="card-icon" aria-hidden="true">
+          <!-- Bank / pillars icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="22" x2="21" y2="22"/>
+            <line x1="6" y1="18" x2="6"  y2="11"/>
+            <line x1="10" y1="18" x2="10" y2="11"/>
+            <line x1="14" y1="18" x2="14" y2="11"/>
+            <line x1="18" y1="18" x2="18" y2="11"/>
+            <polygon points="12 2 3 7 21 7"/>
+          </svg>
+        </div>
+        <div class="card-title">Indices</div>
+        <p class="card-desc">Trade major and minor Index CFDs from around the globe with competitive conditions</p>
+        <a href="#" class="card-link">Explore Indices &rarr;</a>
+      </div>
+
+    </div><!-- /.products-grid -->
+  </div><!-- /.container -->
+</section>
+
+<section id="how-it-works" aria-labelledby="hiw-title">
+  <div class="container">
+ 
+    <!-- Header -->
+    <div class="hiw-header">
+      <div class="hiw-badge">Simple Process</div>
+      <h2 class="hiw-title" id="hiw-title">How It Works</h2>
+      <p class="hiw-subtitle">Get started with trading in three simple steps</p>
+    </div>
+ 
+    <!-- Steps grid -->
+    <div class="hiw-grid">
+ 
+      <!-- Step 1: Deposit -->
+      <div class="hiw-card">
+        <div class="hiw-step-num" aria-hidden="true">1</div>
+        <div class="hiw-step-title">Deposit</div>
+        <p class="hiw-step-desc">
+          Open a real account and add funds. We work with more than
+          20 payment systems for your convenience.
+        </p>
+        <a href="#" class="hiw-btn">Get Started &rarr;</a>
+      </div>
+ 
+      <!-- Step 2: Trade -->
+      <div class="hiw-card">
+        <div class="hiw-step-num" aria-hidden="true">2</div>
+        <div class="hiw-step-title">Trade</div>
+        <p class="hiw-step-desc">
+          Trade any of 100 assets and stocks. Use technical analysis
+          and trade the news for better results.
+        </p>
+        <a href="#" class="hiw-btn">Explore Markets &rarr;</a>
+      </div>
+ 
+      <!-- Step 3: Withdraw -->
+      <div class="hiw-card">
+        <div class="hiw-step-num" aria-hidden="true">3</div>
+        <div class="hiw-step-title">Withdraw</div>
+        <p class="hiw-step-desc">
+          Get funds easily to your bank card or e-wallet with our
+          fast and secure withdrawal process.
+        </p>
+        <a href="#" class="hiw-btn">Learn More &rarr;</a>
+      </div>
+ 
+    </div><!-- /.hiw-grid -->
+  </div><!-- /.container -->
+</section>
+<section id="why-us" aria-labelledby="why-us-title">
+  <div class="container">
+ 
+    <!-- Header -->
+    <div class="why-header">
+      <h2 id="why-us-title">Why Trade With Us</h2>
+      <p>Everything you need for successful trading</p>
+    </div>
+ 
+    <!-- Features grid -->
+    <div class="why-grid">
+ 
+      <!-- Trading Tools -->
+      <div class="why-item why-tools">
+        <div class="why-icon" aria-hidden="true">
+          <!-- Trending-up / chart icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+            <polyline points="16 7 22 7 22 13"/>
+          </svg>
+        </div>
+        <div class="why-item-title">Trading Tools</div>
+        <p class="why-item-desc">Plan your trades effectively with our wide range of free professional trading tools</p>
+      </div>
+ 
+      <!-- Trading Products -->
+      <div class="why-item why-products">
+        <div class="why-icon" aria-hidden="true">
+          <!-- Layers / stacked icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+            <polyline points="2 17 12 22 22 17"/>
+            <polyline points="2 12 12 17 22 12"/>
+          </svg>
+        </div>
+        <div class="why-item-title">Trading Products</div>
+        <p class="why-item-desc">Diverse opportunities to optimize your trading portfolio across multiple markets</p>
+      </div>
+ 
+      <!-- Trading Platforms -->
+      <div class="why-item why-platforms">
+        <div class="why-icon" aria-hidden="true">
+          <!-- Monitor / desktop icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <div class="why-item-title">Trading Platforms</div>
+        <p class="why-item-desc">Powerful platforms to suit all trading styles and needs on any device</p>
+      </div>
+ 
+      <!-- Funding Methods -->
+      <div class="why-item why-funding">
+        <div class="why-icon" aria-hidden="true">
+          <!-- Wallet icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+            <path d="M16 11h2v2h-2z" fill="currentColor" stroke="none"/>
+            <path d="M4 7V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2"/>
+          </svg>
+        </div>
+        <div class="why-item-title">Funding Methods</div>
+        <p class="why-item-desc">Multiple quick, easy and secure methods to fund your trading account</p>
+      </div>
+ 
+    </div><!-- /.why-grid -->
+  </div><!-- /.container -->
+</section>
+<!-- ═══════════ HTML — paste into your <body> ═══════════ -->
+<section id="switch-to" aria-labelledby="switch-title">
+  <div class="container">
+ 
+    <!-- Header -->
+    <div class="switch-header">
+      <h2 id="switch-title">Switch To Primestone</h2>
+      <p>At Primestone we work hard to enhance your trading experience. As a global, 5 star rated broker, our client's satisfaction is in the center of our focus.</p>
+    </div>
+ 
+    <!-- Grid -->
+    <div class="switch-grid">
+ 
+      <!-- Row 1 -->
+ 
+      <!-- 2100+ Instruments -->
+      <div class="switch-item">
+        <div class="switch-icon" aria-hidden="true">
+          <!-- Stacked layers / books icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="3" rx="1"/>
+            <rect x="3" y="9" width="18" height="3" rx="1"/>
+            <rect x="3" y="14" width="18" height="3" rx="1"/>
+            <rect x="3" y="19" width="18" height="2" rx="1"/>
+          </svg>
+        </div>
+        <div class="switch-item-title">2100+ instruments</div>
+        <p class="switch-item-desc">Wide range of global markets, including Forex, Indices, Commodities, ETFs and more.</p>
+      </div>
+ 
+      <!-- Safe & Secure -->
+      <div class="switch-item">
+        <div class="switch-icon" aria-hidden="true">
+          <!-- Shield check icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l8 3.5V11c0 5-3.5 8.5-8 10C7.5 19.5 4 16 4 11V5.5L12 2z"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
+        </div>
+        <div class="switch-item-title">Safe &amp; Secure</div>
+        <p class="switch-item-desc">Primestone is regulated by the world's biggest supervision authorities, including the Financial Conduct Authority.</p>
+      </div>
+ 
+      <!-- Comprehensive Education -->
+      <div class="switch-item">
+        <div class="switch-icon" aria-hidden="true">
+          <!-- Open book icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 4h8a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H2V4z"/>
+            <path d="M22 4h-8a2 2 0 0 0-2 2v14a2 2 0 0 1 2-2h8V4z"/>
+          </svg>
+        </div>
+        <div class="switch-item-title">Comprehensive education</div>
+        <p class="switch-item-desc">Make use of our extensive video library and get to know more about trading.</p>
+      </div>
+ 
+      <!-- Horizontal divider between rows -->
+      <div class="switch-divider" aria-hidden="true"></div>
+ 
+      <!-- Row 2 -->
+ 
+      <!-- Innovative Platform -->
+      <div class="switch-item">
+        <div class="switch-icon" aria-hidden="true">
+          <!-- Terminal / platform icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <path d="M9 9l-3 3 3 3"/>
+            <path d="M15 9l3 3-3 3"/>
+            <line x1="10" y1="15" x2="14" y2="9"/>
+          </svg>
+        </div>
+        <div class="switch-item-title">Innovative platform</div>
+        <p class="switch-item-desc">We're constantly improving our trading platform to make it the best on the market.</p>
+      </div>
+ 
+      <!-- 495,000+ Customers -->
+      <div class="switch-item">
+        <div class="switch-icon" aria-hidden="true">
+          <!-- Info / chat bubble icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="8.5" stroke-width="2"/>
+            <line x1="12" y1="11" x2="12" y2="16"/>
+          </svg>
+        </div>
+        <div class="switch-item-title">495,000+ customers</div>
+        <p class="switch-item-desc">With years of activity in the financial markets, Primestone has gained thousands of customers.</p>
+      </div>
+ 
+      <!-- Fast & Qualified Support -->
+      <div class="switch-item">
+        <div class="switch-icon" aria-hidden="true">
+          <!-- User / person icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="7" r="4"/>
+            <path d="M4 21v-1a8 8 0 0 1 16 0v1"/>
+          </svg>
+        </div>
+        <div class="switch-item-title">Fast &amp; highly qualified support</div>
+        <p class="switch-item-desc">Our multilingual customer support team is ready to help you — 24 hours a day.</p>
+      </div>
+ 
+    </div><!-- /.switch-grid -->
+  </div><!-- /.container -->
+</section>
+
+<!-- ═══════════ HTML — paste into your <body> ═══════════ -->
+<section id="crypto-deposit" aria-labelledby="cd-title">
+ 
+  <div class="cd-header">
+ 
+    <!-- Eyebrow label with horizontal rules -->
+    <div class="cd-eyebrow">
+      <span>Deposit With Crypto</span>
+    </div>
+ 
+    <h2 class="cd-title" id="cd-title">We Accept Crypto Deposits</h2>
+ 
+    <p class="cd-subtitle">
+      Deposit, withdraw and hold your balance in Bitcoin, Ethereum
+    </p>
+ 
+    <a href="#" class="cd-btn">Get Started</a>
+ 
+  </div>
+</section>
+
+<!-- ═══════════ HTML — paste into your <body> ═══════════ -->
+<section id="superior" aria-labelledby="sup-title">
+  <div class="container">
+ 
+    <!-- Header -->
+    <div class="sup-header">
+      <div class="sup-badge">Superior Trading Experience</div>
+      <h2 class="sup-title" id="sup-title">Tighter Spreads. Faster Execution.</h2>
+      <p class="sup-subtitle">Experience institutional-grade trading conditions designed for professional traders</p>
+    </div>
+ 
+    <div class="sup-body">
+ 
+      <!-- LEFT: Premium Trading Conditions -->
+      <div class="sup-conditions">
+        <h3>Premium Trading Conditions</h3>
+ 
+        <ul class="sup-features">
+          <li class="sup-feature">
+            <span class="sup-check" aria-hidden="true">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="2 6 5 9 10 3"/>
+              </svg>
+            </span>
+            <span class="sup-feature-text">
+              <strong>Ultra-low spreads</strong> from 0.0 pips on major pairs
+            </span>
+          </li>
+          <li class="sup-feature">
+            <span class="sup-check" aria-hidden="true">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="2 6 5 9 10 3"/>
+              </svg>
+            </span>
+            <span class="sup-feature-text">
+              <strong>Lightning-fast execution</strong> from NY4 server facility with minimal slippage
+            </span>
+          </li>
+          <li class="sup-feature">
+            <span class="sup-check" aria-hidden="true">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="2 6 5 9 10 3"/>
+              </svg>
+            </span>
+            <span class="sup-feature-text">
+              <strong>Top-tier liquidity</strong> and market-leading pricing 24/5
+            </span>
+          </li>
+          <li class="sup-feature">
+            <span class="sup-check" aria-hidden="true">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="2 6 5 9 10 3"/>
+              </svg>
+            </span>
+            <span class="sup-feature-text">
+              <strong>No dealing desk</strong> and no requotes, ever
+            </span>
+          </li>
+        </ul>
+ 
+        <a href="#" class="sup-cta">View detailed conditions &rarr;</a>
+      </div>
+ 
+      <!-- RIGHT: TradingView Forex Cross Rates Widget -->
+      <div class="sup-tv-wrap">
+ 
+        <div class="sup-tv-head">
+          <h3>Live Market Overview</h3>
+          <span class="sup-live-badge">LIVE</span>
+        </div>
+ 
+        <div class="sup-tv-body">
+          <!-- TradingView Widget BEGIN -->
+          <div class="tradingview-widget-container" style="height:100%;width:100%">
+            <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
+            <div class="tradingview-widget-copyright">
+              <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+                <span class="blue-text">Track all markets on TradingView</span>
+              </a>
+            </div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js" async>
+            {
+              "width": "100%",
+              "height": "100%",
+              "currencies": [
+                "EUR", "USD", "JPY", "GBP", "CHF", "AUD", "CAD", "NZD"
+              ],
+              "isTransparent": true,
+              "colorTheme": "dark",
+              "locale": "en",
+              "backgroundColor": "#0e1622"
+            }
+            </script>
+          </div>
+          <!-- TradingView Widget END -->
+        </div>
+ 
+      </div><!-- /.sup-tv-wrap -->
+ 
+    </div><!-- /.sup-body -->
+  </div><!-- /.container -->
+</section>
+<!-- ═══════════ Advanced Trading Tools ═══════════ -->
+<section id="advanced-tools" aria-labelledby="tools-title">
+  <div class="container">
+
+    <div class="tools-header">
+      <h2 class="tools-title" id="tools-title">Advanced Trading Tools</h2>
+      <p class="tools-subtitle">Our platform provides everything you need for successful trading in one powerful interface</p>
+    </div>
+
+    <div class="tools-grid">
+
+      <!-- Reliable Execution -->
+      <div class="tool-card">
+        <div class="tool-icon tool-icon--blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+        </div>
+        <h3 class="tool-card-title"><strong>Reliable</strong> <span>Execution</span></h3>
+        <p class="tool-card-desc">Featuring the market's sharpest execution, BULLISH BUNKER LIMITED cTrader fills your orders in milliseconds without any requotes or price manipulation.</p>
+      </div>
+
+      <!-- Intelligent Analysis -->
+      <div class="tool-card">
+        <div class="tool-icon tool-icon--purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <h3 class="tool-card-title"><strong>Intelligent</strong> <span>Analysis</span></h3>
+        <p class="tool-card-desc">Make informed decisions with smart market analysis tools, Live Sentiment data and in-platform market insights from Trading Central.</p>
+      </div>
+
+      <!-- Transparent Reporting -->
+      <div class="tool-card">
+        <div class="tool-icon tool-icon--cyan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
+          </svg>
+        </div>
+        <h3 class="tool-card-title"><strong>Transparent</strong> <span>Reporting</span></h3>
+        <p class="tool-card-desc">Access transaction statistics, equity charts and detailed history of your deals for a crystal clear understanding of your performance.</p>
+      </div>
+
+      <!-- Intuitive Interface -->
+      <div class="tool-card">
+        <div class="tool-icon tool-icon--teal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <h3 class="tool-card-title"><strong>Intuitive</strong> <span>Interface</span></h3>
+        <p class="tool-card-desc">Easy to use and navigate, BULLISH BUNKER LIMITED cTrader was built with real traders' needs in mind. Trade with BULLISH BUNKER LIMITED cTrader and experience its distinct advantage.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+ 
+  
+ 
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        /* 1. Scroll glass */
+        const mainNav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => {
+            mainNav.classList.toggle('scrolled', window.scrollY > 20);
+        }, { passive: true });
+
+        /* 2. Drawer toggle
+           JS does ONE thing: add/remove .drawer-open on <nav>.
+           CSS handles every visual change from that single class. */
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const navDrawer = document.getElementById('navDrawer');
+
+        function openDrawer() {
+            mainNav.classList.add('drawer-open');
+            hamburgerBtn.setAttribute('aria-expanded', 'true');
+            navDrawer.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeDrawer() {
+            mainNav.classList.remove('drawer-open');
+            hamburgerBtn.setAttribute('aria-expanded', 'false');
+            navDrawer.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        hamburgerBtn.addEventListener('click', () =>
+            mainNav.classList.contains('drawer-open') ? closeDrawer() : openDrawer()
+        );
+        navDrawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+        window.addEventListener('resize', () => { if (window.innerWidth >= 992) closeDrawer(); });
+
+
+        /* 4. Hide fallback when video loads */
+        document.getElementById('heroVideo').addEventListener('canplay', () => {
+            document.getElementById('heroFallback').style.opacity = '0';
+        });
+    </script>
+
+</body>
+
+</html>
