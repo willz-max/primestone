@@ -1,0 +1,1934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alpha Traders Group | Trade Smarter. Win Consistently.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* ═══════════════════════════════════════════════════
+   TOKENS & RESET — GEMINI PALETTE
+═══════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Gemini dark UI palette */
+  --bg:           #0d1117;
+  --surface:      #131920;
+  --surface2:     #1a2332;
+  --surface3:     #1e2a3d;
+  --border:       rgba(138,180,248,0.08);
+  --border2:      rgba(138,180,248,0.15);
+  --border3:      rgba(138,180,248,0.22);
+
+  /* Gemini signature — electric blue-teal */
+  --accent:       #4da6ff;
+  --accent2:      #1a8cff;
+  --accent-warm:  #8ab4f8;
+  --accent-glow:  rgba(77,166,255,0.3);
+  --accent-dim:   rgba(77,166,255,0.1);
+  --accent-dim2:  rgba(77,166,255,0.06);
+
+  /* Gemini secondary — purple-violet */
+  --violet:       #a78bfa;
+  --violet-dim:   rgba(167,139,250,0.12);
+
+  /* Gemini tertiary — cyan-teal */
+  --teal:         #34d399;
+  --teal-dim:     rgba(52,211,153,0.12);
+
+  /* Gold for VIP */
+  --gold:         #fbbf24;
+  --gold-dim:     rgba(251,191,36,0.12);
+
+  --green:        #34d399;
+  --red:          #f87171;
+
+  --white:        #e8edf5;
+  --white2:       #c2cfe0;
+  --dim:          #7a92b0;
+  --dimmer:       #3d5068;
+
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  --radius-sm:    6px;
+  --radius:       12px;
+  --radius-lg:    20px;
+  --radius-xl:    28px;
+  --radius-pill:  9999px;
+  --nav-h:        68px;
+  --trans:        0.22s cubic-bezier(.4,0,.2,1);
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,h2,h3,h4 { font-family: var(--font-display); line-height: 1.1; letter-spacing: -0.02em; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+
+.container { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+/* ═══════════════════════════════════════════════════
+   NAV — FULLY RESPONSIVE
+═══════════════════════════════════════════════════ */
+nav {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  width: min(calc(100% - 32px), 1100px);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px 0 18px;
+  background: rgba(13,17,23,0.85);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid var(--border3);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(77,166,255,0.06) inset;
+  transition: box-shadow var(--trans);
+}
+
+nav.scrolled {
+  box-shadow: 0 12px 48px rgba(0,0,0,0.7), 0 0 0 1px rgba(77,166,255,0.1) inset;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.nav-logo-icon {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, var(--accent), var(--violet));
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.nav-logo .logo-alpha { color: var(--accent); }
+
+/* Desktop links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-links a {
+  color: var(--dim);
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  font-weight: 500;
+  padding: 7px 13px;
+  border-radius: var(--radius-pill);
+  transition: color var(--trans), background var(--trans);
+  white-space: nowrap;
+}
+
+.nav-links a:hover { color: var(--white); background: var(--border); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.nav-cta {
+  background: var(--accent) !important;
+  color: #0d1117 !important;
+  font-weight: 700 !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.84rem !important;
+  padding: 8px 18px !important;
+  border-radius: var(--radius-pill) !important;
+  transition: all var(--trans) !important;
+  box-shadow: 0 4px 16px var(--accent-glow) !important;
+  white-space: nowrap;
+}
+.nav-cta:hover { transform: translateY(-1px) !important; box-shadow: 0 6px 24px var(--accent-glow) !important; background: #6bbdff !important; }
+
+/* Hamburger */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 4.5px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  background: none;
+  border: none;
+  z-index: 10001;
+  flex-shrink: 0;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--white2);
+  border-radius: 2px;
+  transition: var(--trans);
+  transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Mobile drawer */
+.nav-mobile-drawer {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(13,17,23,0.97);
+  backdrop-filter: blur(24px);
+  z-index: 10000;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.nav-mobile-drawer.open {
+  display: flex;
+  opacity: 1;
+  pointer-events: all;
+}
+.nav-mobile-drawer a {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--dim);
+  padding: 12px 32px;
+  border-radius: var(--radius);
+  transition: color var(--trans), background var(--trans);
+  letter-spacing: -0.02em;
+}
+.nav-mobile-drawer a:hover { color: var(--white); background: var(--border); }
+.nav-mobile-drawer .mobile-cta {
+  background: var(--accent);
+  color: #0d1117 !important;
+  font-weight: 800;
+  margin-top: 16px;
+  box-shadow: 0 8px 32px var(--accent-glow);
+}
+
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+}
+
+/* ═══════════════════════════════════════════════════
+   TICKER TAPE — CSS ANIMATED
+═══════════════════════════════════════════════════ */
+.ticker-section {
+  background: var(--surface);
+  border-top: 1px solid var(--border2);
+  border-bottom: 1px solid var(--border2);
+  overflow: hidden;
+  padding: 0;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.ticker-section::before,
+.ticker-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.ticker-section::before {
+  left: 0;
+  background: linear-gradient(to right, var(--surface), transparent);
+}
+.ticker-section::after {
+  right: 0;
+  background: linear-gradient(to left, var(--surface), transparent);
+}
+
+.ticker-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  animation: ticker-scroll 50s linear infinite;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.ticker-track:hover { animation-play-state: paused; }
+
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 28px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  font-family: var(--font-body);
+  border-right: 1px solid var(--border);
+  height: 52px;
+}
+
+.ticker-item .t-name {
+  color: var(--white2);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-size: 0.78rem;
+}
+
+.ticker-item .t-price {
+  color: var(--white);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.ticker-item .t-change {
+  font-size: 0.73rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+}
+.ticker-item .t-change.up   { color: var(--green); background: var(--teal-dim); }
+.ticker-item .t-change.down { color: var(--red); background: rgba(248,113,113,0.1); }
+
+.ticker-item .t-icon {
+  font-size: 0.85rem;
+  width: 22px;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  overflow: hidden;
+}
+
+.hero-video-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.hero-video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.15;
+}
+
+.hero-bg-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 50%, rgba(77,166,255,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 70% 50%, rgba(167,139,250,0.06) 0%, transparent 55%),
+    repeating-linear-gradient(90deg, rgba(138,180,248,0.018) 0px, rgba(138,180,248,0.018) 1px, transparent 1px, transparent 64px),
+    repeating-linear-gradient(0deg,  rgba(138,180,248,0.018) 0px, rgba(138,180,248,0.018) 1px, transparent 1px, transparent 64px),
+    var(--bg);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 65% 50% at 50% -5%, rgba(77,166,255,0.18) 0%, transparent 65%),
+    linear-gradient(to bottom, transparent 55%, var(--bg) 100%);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  animation: heroIn 0.9s cubic-bezier(.16,1,.3,1) both;
+}
+
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent-dim2);
+  border: 1px solid rgba(77,166,255,0.22);
+  border-radius: var(--radius-pill);
+  padding: 6px 16px 6px 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent-warm);
+  margin-bottom: 28px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  animation: heroIn 0.9s 0.1s cubic-bezier(.16,1,.3,1) both;
+}
+
+.hero-badge .badge-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  50% { box-shadow: 0 0 0 6px transparent; }
+}
+
+.hero h1 {
+  font-size: clamp(2.8rem, 7.5vw, 6.2rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  animation: heroIn 0.9s 0.15s cubic-bezier(.16,1,.3,1) both;
+}
+
+.hero h1 .hero-blue {
+  background: linear-gradient(135deg, var(--accent), var(--violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero h1 .hero-outline {
+  -webkit-text-stroke: 1.5px rgba(138,180,248,0.35);
+  color: transparent;
+}
+
+.hero-sub {
+  color: var(--dim);
+  font-size: 1.08rem;
+  max-width: 540px;
+  margin: 0 auto 44px;
+  line-height: 1.78;
+  animation: heroIn 0.9s 0.2s cubic-bezier(.16,1,.3,1) both;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: heroIn 0.9s 0.27s cubic-bezier(.16,1,.3,1) both;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  margin-top: 64px;
+  flex-wrap: wrap;
+  animation: heroIn 0.9s 0.34s cubic-bezier(.16,1,.3,1) both;
+  padding-top: 48px;
+  border-top: 1px solid var(--border);
+}
+
+.hero-stat { text-align: center; }
+.hero-stat .num {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--white);
+}
+.hero-stat .num .accent-num { color: var(--accent); }
+.hero-stat .label { font-size: 0.76rem; color: var(--dim); margin-top: 3px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* ═══════════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════════ */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #0d1117;
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 13px 30px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--trans);
+  box-shadow: 0 4px 20px var(--accent-glow);
+  letter-spacing: 0.01em;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--accent-glow); background: #6bbdff; }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--dim);
+  border: 1px solid var(--border3);
+  border-radius: var(--radius-pill);
+  padding: 12px 30px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--trans);
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+/* ═══════════════════════════════════════════════════
+   SECTION COMMONS
+═══════════════════════════════════════════════════ */
+section { padding: 100px 0; }
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.71rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.section-eyebrow::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--violet));
+  border-radius: 2px;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 700;
+  margin-bottom: 16px;
+  letter-spacing: -0.025em;
+}
+
+.section-body {
+  color: var(--dim);
+  font-size: 1rem;
+  max-width: 560px;
+  line-height: 1.78;
+}
+
+/* ═══════════════════════════════════════════════════
+   FEATURES — CARDS
+═══════════════════════════════════════════════════ */
+.features-section { background: var(--bg); }
+.features-header { text-align: center; margin-bottom: 64px; }
+.features-header .section-eyebrow { justify-content: center; }
+.features-header .section-body { margin: 0 auto; }
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.feat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--trans), border-color var(--trans), box-shadow var(--trans);
+  cursor: default;
+}
+
+.feat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--accent-dim) 0%, transparent 55%);
+  opacity: 0;
+  transition: opacity var(--trans);
+}
+
+.feat-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(77,166,255,0.22);
+  box-shadow: 0 24px 56px rgba(0,0,0,0.35), 0 0 0 1px rgba(77,166,255,0.08);
+}
+.feat-card:hover::before { opacity: 1; }
+
+.feat-card:nth-child(2)::before { background: linear-gradient(135deg, var(--violet-dim) 0%, transparent 55%); }
+.feat-card:nth-child(2):hover { border-color: rgba(167,139,250,0.22); }
+.feat-card:nth-child(2) .feat-icon { background: var(--violet-dim); color: var(--violet); }
+
+.feat-card:nth-child(4) .feat-icon { background: var(--teal-dim); color: var(--teal); }
+.feat-card:nth-child(5) .feat-icon { background: var(--gold-dim); color: var(--gold); }
+.feat-card:nth-child(6) .feat-icon { background: var(--violet-dim); color: var(--violet); }
+
+.feat-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-radius: var(--radius);
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  transition: transform var(--trans);
+}
+.feat-card:hover .feat-icon { transform: scale(1.1) rotate(-4deg); }
+
+.feat-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.feat-desc {
+  color: var(--dim);
+  font-size: 0.875rem;
+  line-height: 1.72;
+  position: relative;
+  z-index: 1;
+}
+
+.feat-tag {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════════════
+   WHY ALPHA
+═══════════════════════════════════════════════════ */
+.why-section {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.why-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.why-points { margin-top: 40px; display: flex; flex-direction: column; gap: 16px; }
+
+.why-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color var(--trans), transform var(--trans);
+}
+.why-point:hover { border-color: rgba(77,166,255,0.2); transform: translateX(4px); }
+
+.why-check {
+  width: 32px;
+  height: 32px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  font-size: 0.78rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.why-point-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 3px; }
+.why-point-desc  { font-size: 0.83rem; color: var(--dim); line-height: 1.6; }
+
+.why-image { position: relative; }
+
+.why-img-container {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  background: var(--surface2);
+  position: relative;
+  border: 1px solid var(--border);
+}
+
+.why-img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(160deg, var(--surface3) 0%, var(--surface2) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--dimmer);
+  font-size: 0.85rem;
+}
+
+.why-img-placeholder i { font-size: 3rem; color: var(--accent); opacity: 0.35; }
+
+.why-float-badge {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  background: rgba(13,17,23,0.92);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border3);
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.why-float-badge .num {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.why-float-badge .txt { font-size: 0.78rem; color: var(--dim); line-height: 1.4; }
+
+/* ═══════════════════════════════════════════════════
+   RESULTS / TESTIMONIALS
+═══════════════════════════════════════════════════ */
+.results-section { background: var(--bg); }
+.results-header { text-align: center; margin-bottom: 56px; }
+.results-header .section-eyebrow { justify-content: center; }
+
+.results-placeholder {
+  background: var(--surface);
+  border: 2px dashed var(--border3);
+  border-radius: var(--radius-lg);
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: var(--dimmer);
+  text-align: center;
+  padding: 40px;
+}
+
+.results-placeholder i { font-size: 3rem; opacity: 0.5; color: var(--accent); }
+.results-placeholder h3 { font-family: var(--font-display); font-size: 1.4rem; color: var(--dimmer); }
+.results-placeholder p { font-size: 0.85rem; max-width: 360px; }
+
+.testimonials-row {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 18px;
+  margin-top: 40px;
+}
+
+.testi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: transform var(--trans), border-color var(--trans);
+}
+.testi-card:hover { transform: translateY(-4px); border-color: rgba(77,166,255,0.18); }
+
+.testi-stars { color: var(--gold); font-size: 0.8rem; margin-bottom: 14px; display: flex; gap: 3px; }
+.testi-text  { font-size: 0.89rem; color: var(--dim); line-height: 1.72; margin-bottom: 20px; font-style: italic; }
+.testi-author { display: flex; align-items: center; gap: 10px; }
+.testi-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-dim), var(--violet-dim));
+  border: 1px solid var(--border2);
+  display: grid;
+  place-items: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.testi-name { font-size: 0.85rem; font-weight: 600; }
+.testi-handle { font-size: 0.75rem; color: var(--dim); }
+
+/* ═══════════════════════════════════════════════════
+   HOW IT WORKS
+═══════════════════════════════════════════════════ */
+.how-section {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.how-header { text-align: center; margin-bottom: 64px; }
+.how-header .section-eyebrow { justify-content: center; }
+
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+}
+
+.how-steps::before {
+  content: '';
+  position: absolute;
+  top: 27px;
+  left: calc(12.5% + 16px);
+  right: calc(12.5% + 16px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border3) 20%, var(--border3) 80%, transparent);
+}
+
+.how-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 24px;
+  position: relative;
+}
+
+.how-step-num {
+  width: 54px;
+  height: 54px;
+  background: var(--surface2);
+  border: 1px solid var(--border3);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+  transition: background var(--trans), box-shadow var(--trans), border-color var(--trans);
+}
+
+.how-step:hover .how-step-num {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 8px rgba(77,166,255,0.06);
+}
+
+.how-step h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+.how-step p  { font-size: 0.83rem; color: var(--dim); line-height: 1.65; }
+
+/* ═══════════════════════════════════════════════════
+   PRICING
+═══════════════════════════════════════════════════ */
+.pricing-section { background: var(--bg); }
+.pricing-header { text-align: center; margin-bottom: 64px; }
+.pricing-header .section-eyebrow { justify-content: center; }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.plan-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  position: relative;
+  transition: transform var(--trans), box-shadow var(--trans);
+}
+
+.plan-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 56px rgba(0,0,0,0.35);
+}
+
+.plan-card.featured {
+  background: linear-gradient(160deg, rgba(77,166,255,0.08) 0%, var(--surface) 55%);
+  border-color: rgba(77,166,255,0.28);
+  transform: translateY(-12px);
+  box-shadow: 0 32px 72px rgba(0,0,0,0.4), 0 0 0 1px rgba(77,166,255,0.12);
+}
+
+.plan-card.featured:hover {
+  transform: translateY(-18px);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(77,166,255,0.22);
+}
+
+.crown-float {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--gold), #d97706);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.3rem;
+  box-shadow: 0 8px 24px rgba(251,191,36,0.4);
+  animation: float 3s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes float {
+  0%,100% { transform: translateX(-50%) translateY(0); box-shadow: 0 8px 24px rgba(251,191,36,0.4); }
+  50%      { transform: translateX(-50%) translateY(-8px); box-shadow: 0 16px 32px rgba(251,191,36,0.6); }
+}
+
+.plan-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-dim);
+  border: 1px solid rgba(77,166,255,0.25);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.plan-name {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.plan-card.featured .plan-name { color: var(--accent); }
+
+.plan-price {
+  font-family: var(--font-display);
+  font-size: 3.4rem;
+  font-weight: 700;
+  line-height: 1;
+  margin: 16px 0 4px;
+  display: flex;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.plan-price sup {
+  font-size: 1.2rem;
+  font-family: var(--font-body);
+  margin-top: 10px;
+  color: var(--dim);
+}
+
+.plan-period { font-size: 0.78rem; color: var(--dim); margin-bottom: 24px; }
+
+.plan-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.plan-features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+
+.plan-feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.865rem;
+}
+
+.plan-feature .icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.65rem;
+  flex-shrink: 0;
+}
+
+.plan-feature.yes .icon { background: rgba(52,211,153,0.15); color: var(--green); }
+.plan-feature.no  .icon { background: var(--surface3); color: var(--dimmer); }
+.plan-feature.no  { color: var(--dimmer); }
+
+.plan-cta { display: flex; justify-content: center; }
+
+/* ═══════════════════════════════════════════════════
+   CTA BANNER
+═══════════════════════════════════════════════════ */
+.cta-section {
+  padding: 100px 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(77,166,255,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-inner { position: relative; z-index: 1; }
+
+.cta-section h2 {
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  margin: 16px 0 16px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-section p {
+  color: var(--dim);
+  font-size: 1.05rem;
+  margin-bottom: 40px;
+}
+
+.cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+.cta-pills {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.cta-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--dim);
+}
+.cta-pill i { color: var(--green); font-size: 0.75rem; }
+
+/* ═══════════════════════════════════════════════════
+   FAQ
+═══════════════════════════════════════════════════ */
+.faq-section { background: var(--bg); }
+.faq-header { max-width: 600px; margin-bottom: 52px; }
+
+.faq-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.faq-col { display: flex; flex-direction: column; gap: 0; }
+
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.faq-q {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.925rem;
+  font-weight: 500;
+  text-align: left;
+  padding: 20px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: color var(--trans);
+}
+.faq-q:hover { color: var(--accent); }
+
+.faq-q-icon {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border2);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.7rem;
+  color: var(--dim);
+  flex-shrink: 0;
+  transition: all var(--trans);
+}
+
+.faq-item.open .faq-q-icon {
+  background: var(--accent-dim);
+  border-color: rgba(77,166,255,0.28);
+  color: var(--accent);
+  transform: rotate(45deg);
+}
+
+.faq-item.open .faq-q { color: var(--accent); }
+
+.faq-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(.4,0,.2,1);
+}
+
+.faq-item.open .faq-body { max-height: 300px; }
+
+.faq-a {
+  color: var(--dim);
+  font-size: 0.875rem;
+  line-height: 1.75;
+  padding-bottom: 20px;
+}
+
+/* ═══════════════════════════════════════════════════
+   DISCLAIMER
+═══════════════════════════════════════════════════ */
+.disclaimer-strip {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 40px 0;
+}
+
+.disclaimer-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.disc-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(248,113,113,0.1);
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  color: var(--red);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.disc-text h4 {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--red);
+  margin-bottom: 6px;
+}
+
+.disc-text p {
+  font-size: 0.8rem;
+  color: var(--dim);
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════ */
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 72px 0 32px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 52px;
+  border-bottom: 1px solid var(--border);
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.footer-brand span { color: var(--accent); }
+
+.footer-tagline {
+  font-size: 0.85rem;
+  color: var(--dim);
+  line-height: 1.7;
+  margin-bottom: 24px;
+  max-width: 260px;
+}
+
+.social-links { display: flex; gap: 10px; }
+
+.social-link {
+  width: 38px;
+  height: 38px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  color: var(--dim);
+  font-size: 0.85rem;
+  transition: all var(--trans);
+}
+.social-link:hover { background: var(--accent-dim); border-color: rgba(77,166,255,0.28); color: var(--accent); }
+
+.footer-col h5 {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--white2);
+  margin-bottom: 20px;
+}
+
+.footer-links { display: flex; flex-direction: column; gap: 10px; }
+.footer-links a {
+  font-size: 0.85rem;
+  color: var(--dim);
+  transition: color var(--trans);
+}
+.footer-links a:hover { color: var(--accent); }
+
+.footer-bottom {
+  padding-top: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-bottom p { font-size: 0.78rem; color: var(--dimmer); }
+
+.footer-badges { display: flex; gap: 12px; }
+.footer-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--dimmer);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 5px 12px;
+}
+.footer-badge i { color: var(--teal); }
+
+/* ═══════════════════════════════════════════════════
+   SCROLL ANIMATIONS
+═══════════════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s cubic-bezier(.16,1,.3,1), transform 0.65s cubic-bezier(.16,1,.3,1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
+@media (max-width: 860px) {
+  .features-grid { grid-template-columns: 1fr 1fr; }
+  .why-inner { grid-template-columns: 1fr; gap: 40px; }
+  .why-image { display: none; }
+  .how-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .how-steps::before { display: none; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+  .plan-card.featured { transform: none; }
+  .testimonials-row { grid-template-columns: 1fr; }
+  .faq-wrap { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 540px) {
+  .features-grid { grid-template-columns: 1fr; }
+  .how-steps { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 28px; }
+  .hero-actions { flex-direction: column; align-items: center; }
+  .hero h1 { font-size: 2.6rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════ NAV ══════════════════════ -->
+<nav id="mainNav">
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-icon">📈</div>
+    <span class="logo-alpha">Alpha</span>&nbsp;Traders
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <a href="#pricing" class="nav-cta" id="navCta">Join Now</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Drawer -->
+<div class="nav-mobile-drawer" id="mobileDrawer">
+  <a href="#features" class="drawer-link">Features</a>
+  <a href="#why" class="drawer-link">Why Us</a>
+  <a href="#results" class="drawer-link">Results</a>
+  <a href="#pricing" class="drawer-link">Pricing</a>
+  <a href="#faq" class="drawer-link">FAQ</a>
+  <a href="#pricing" class="drawer-link mobile-cta">Join Now →</a>
+</div>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<section id="hero" class="hero">
+  <div class="hero-video-wrap">
+    <video autoplay muted loop playsinline>
+      <source src="assets/Hero-Video.mp4" type="video/mp4">
+    </video>
+    <div class="hero-bg-canvas"></div>
+  </div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      AI-Powered Trading Signals
+    </div>
+
+    <h1>
+      Trade Smarter.<br>
+      <span class="hero-blue">Win</span> <span class="hero-outline">Consistently.</span>
+    </h1>
+
+    <p class="hero-sub">
+      Alpha Traders Group delivers AI-powered crypto, stock & options signals backed by experienced traders and real market insights — so you can execute with confidence.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#pricing" class="btn-primary">
+        <i class="fas fa-bolt"></i> Get Instant Access
+      </a>
+      <a href="#results" class="btn-ghost">
+        <i class="fas fa-chart-line"></i> View Results
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num">3<span class="accent-num">,000+</span></div>
+        <div class="label">Active Members</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">85<span class="accent-num">%</span></div>
+        <div class="label">Signal Accuracy</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">3</div>
+        <div class="label">Markets Covered</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">5<span class="accent-num">+</span></div>
+        <div class="label">Years Experience</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ TICKER TAPE ══════════════════════ -->
+<div class="ticker-section">
+  <div class="ticker-track" id="tickerTrack">
+    <!-- First set -->
+    <div class="ticker-item"><span class="t-icon">₿</span><span class="t-name">BTC/USD</span><span class="t-price">$67,842</span><span class="t-change up">+3.42%</span></div>
+    <div class="ticker-item"><span class="t-icon">Ξ</span><span class="t-name">ETH/USD</span><span class="t-price">$3,521</span><span class="t-change up">+2.18%</span></div>
+    <div class="ticker-item"><span class="t-icon">📈</span><span class="t-name">S&P 500</span><span class="t-price">5,234.18</span><span class="t-change up">+0.87%</span></div>
+    <div class="ticker-item"><span class="t-icon">💹</span><span class="t-name">NASDAQ</span><span class="t-price">16,391</span><span class="t-change up">+1.24%</span></div>
+    <div class="ticker-item"><span class="t-icon">🥇</span><span class="t-name">GOLD</span><span class="t-price">$2,341</span><span class="t-change down">-0.31%</span></div>
+    <div class="ticker-item"><span class="t-icon">🛢</span><span class="t-name">OIL WTI</span><span class="t-price">$78.62</span><span class="t-change up">+0.55%</span></div>
+    <div class="ticker-item"><span class="t-icon">💱</span><span class="t-name">EUR/USD</span><span class="t-price">1.0842</span><span class="t-change down">-0.18%</span></div>
+    <div class="ticker-item"><span class="t-icon">💱</span><span class="t-name">GBP/USD</span><span class="t-price">1.2731</span><span class="t-change up">+0.22%</span></div>
+    <div class="ticker-item"><span class="t-icon">🔵</span><span class="t-name">SOL/USD</span><span class="t-price">$168.40</span><span class="t-change up">+5.12%</span></div>
+    <div class="ticker-item"><span class="t-icon">🔷</span><span class="t-name">BNB/USD</span><span class="t-price">$612</span><span class="t-change down">-0.74%</span></div>
+    <div class="ticker-item"><span class="t-icon">🍎</span><span class="t-name">AAPL</span><span class="t-price">$185.92</span><span class="t-change up">+1.04%</span></div>
+    <div class="ticker-item"><span class="t-icon">🎮</span><span class="t-name">NVDA</span><span class="t-price">$876.45</span><span class="t-change up">+2.63%</span></div>
+    <!-- Duplicate for seamless loop -->
+    <div class="ticker-item"><span class="t-icon">₿</span><span class="t-name">BTC/USD</span><span class="t-price">$67,842</span><span class="t-change up">+3.42%</span></div>
+    <div class="ticker-item"><span class="t-icon">Ξ</span><span class="t-name">ETH/USD</span><span class="t-price">$3,521</span><span class="t-change up">+2.18%</span></div>
+    <div class="ticker-item"><span class="t-icon">📈</span><span class="t-name">S&P 500</span><span class="t-price">5,234.18</span><span class="t-change up">+0.87%</span></div>
+    <div class="ticker-item"><span class="t-icon">💹</span><span class="t-name">NASDAQ</span><span class="t-price">16,391</span><span class="t-change up">+1.24%</span></div>
+    <div class="ticker-item"><span class="t-icon">🥇</span><span class="t-name">GOLD</span><span class="t-price">$2,341</span><span class="t-change down">-0.31%</span></div>
+    <div class="ticker-item"><span class="t-icon">🛢</span><span class="t-name">OIL WTI</span><span class="t-price">$78.62</span><span class="t-change up">+0.55%</span></div>
+    <div class="ticker-item"><span class="t-icon">💱</span><span class="t-name">EUR/USD</span><span class="t-price">1.0842</span><span class="t-change down">-0.18%</span></div>
+    <div class="ticker-item"><span class="t-icon">💱</span><span class="t-name">GBP/USD</span><span class="t-price">1.2731</span><span class="t-change up">+0.22%</span></div>
+    <div class="ticker-item"><span class="t-icon">🔵</span><span class="t-name">SOL/USD</span><span class="t-price">$168.40</span><span class="t-change up">+5.12%</span></div>
+    <div class="ticker-item"><span class="t-icon">🔷</span><span class="t-name">BNB/USD</span><span class="t-price">$612</span><span class="t-change down">-0.74%</span></div>
+    <div class="ticker-item"><span class="t-icon">🍎</span><span class="t-name">AAPL</span><span class="t-price">$185.92</span><span class="t-change up">+1.04%</span></div>
+    <div class="ticker-item"><span class="t-icon">🎮</span><span class="t-name">NVDA</span><span class="t-price">$876.45</span><span class="t-change up">+2.63%</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════ WHAT YOU GET ══════════════════════ -->
+<section id="features" class="features-section">
+  <div class="container">
+    <div class="features-header reveal">
+      <div class="section-eyebrow">What's Inside</div>
+      <h2 class="section-title">Everything you need<br>to trade at a high level.</h2>
+      <p class="section-body">One membership. Six powerful tools working together to give you the edge serious traders need.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feat-card reveal">
+        <div class="feat-icon"><i class="fab fa-bitcoin"></i></div>
+        <div class="feat-title">Crypto Signals</div>
+        <div class="feat-desc">High-probability setups on BTC, ETH, and top altcoins — with clear entry, stop-loss & take-profit levels. No guesswork, just precision.</div>
+        <div class="feat-tag">Daily Signals →</div>
+      </div>
+
+      <div class="feat-card reveal reveal-delay-1">
+        <div class="feat-icon"><i class="fas fa-chart-candlestick"></i></div>
+        <div class="feat-title">Stock & Options Signals</div>
+        <div class="feat-desc">Advanced setups from experienced traders across U.S. equities and options markets. Includes options flow alerts for VIP members.</div>
+        <div class="feat-tag">Multi-Market →</div>
+      </div>
+
+      <div class="feat-card reveal reveal-delay-2">
+        <div class="feat-icon"><i class="fas fa-robot"></i></div>
+        <div class="feat-title">AI Trading Strategies</div>
+        <div class="feat-desc">Cutting-edge machine learning models scan thousands of setups to surface only the highest-conviction opportunities before they move.</div>
+        <div class="feat-tag">VIP Feature →</div>
+      </div>
+
+      <div class="feat-card reveal reveal-delay-1">
+        <div class="feat-icon"><i class="fas fa-brain"></i></div>
+        <div class="feat-title">Daily Market Analysis</div>
+        <div class="feat-desc">Morning briefings and macro breakdowns so you always understand the why behind each trade. Build real market intuition over time.</div>
+        <div class="feat-tag">Every Trading Day →</div>
+      </div>
+
+      <div class="feat-card reveal reveal-delay-2">
+        <div class="feat-icon"><i class="fas fa-users"></i></div>
+        <div class="feat-title">Private Community</div>
+        <div class="feat-desc">A focused Discord of serious traders sharing ideas, discussing setups, and holding each other accountable. Quality over quantity — always.</div>
+        <div class="feat-tag">Private Discord →</div>
+      </div>
+
+      <div class="feat-card reveal reveal-delay-3">
+        <div class="feat-icon"><i class="fas fa-copy"></i></div>
+        <div class="feat-title">Copy Trading Access</div>
+        <div class="feat-desc">Follow proven strategies in real time. See exactly how experienced traders size positions and manage risk — then execute with confidence.</div>
+        <div class="feat-tag">Mirror Trades →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ WHY ALPHA ══════════════════════ -->
+<section id="why" class="why-section">
+  <div class="container">
+    <div class="why-inner">
+      <div class="why-content reveal">
+        <div class="section-eyebrow">Why Alpha Traders?</div>
+        <h2 class="section-title">Built by traders,<br>for traders.</h2>
+        <p class="section-body">Most signal groups send alerts and disappear. We teach you the reasoning behind every trade — so you grow as a trader, not just as a follower.</p>
+
+        <div class="why-points">
+          <div class="why-point">
+            <div class="why-check"><i class="fas fa-check"></i></div>
+            <div>
+              <div class="why-point-title">No guesswork — only calculated trades</div>
+              <div class="why-point-desc">Every signal is backed by technical analysis, market structure, and risk-reward ratios before it ever hits your feed.</div>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-check"><i class="fas fa-check"></i></div>
+            <div>
+              <div class="why-point-title">Beginner-friendly + advanced strategies</div>
+              <div class="why-point-desc">Step-by-step signal guides for new traders alongside complex options strategies for the experienced ones.</div>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-check"><i class="fas fa-check"></i></div>
+            <div>
+              <div class="why-point-title">Real traders with real skin in the game</div>
+              <div class="why-point-desc">Our analysts trade every signal they publish. No theoretical calls. No hypothetical wins. We're in the market with you.</div>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-check"><i class="fas fa-check"></i></div>
+            <div>
+              <div class="why-point-title">Consistent signals across all markets</div>
+              <div class="why-point-desc">Crypto, stocks, options, and forex — active coverage across all major markets so opportunity never waits for you.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="why-image reveal reveal-delay-2">
+        <div class="why-img-container">
+          <div class="why-img-placeholder">
+            <i class="fas fa-image"></i>
+            <span>Happy trader image goes here</span>
+          </div>
+        </div>
+        <div class="why-float-badge">
+          <div class="num">85%</div>
+          <div class="txt">Signal<br>Accuracy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ RESULTS ══════════════════════ -->
+<section id="results" class="results-section">
+  <div class="container">
+    <div class="results-header reveal">
+      <div class="section-eyebrow">Track Record</div>
+      <h2 class="section-title">Proof is in<br>the results.</h2>
+    </div>
+
+    <div class="results-placeholder reveal">
+      <i class="fas fa-chart-bar"></i>
+      <h3>Screenshots Coming Soon</h3>
+      <p>Real trade results and verified P&L screenshots will be displayed here. Quality evidence only — no cherry-picked wins.</p>
+    </div>
+
+    <div class="testimonials-row">
+      <div class="testi-card reveal">
+        <div class="testi-stars">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p class="testi-text">"Made my first consistent profits within weeks of joining. The signals are clear and the explanations actually teach you something."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">JM</div>
+          <div>
+            <div class="testi-name">James M.</div>
+            <div class="testi-handle">@jmtrades · VIP Member</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-1">
+        <div class="testi-stars">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p class="testi-text">"The signals are accurate and super easy to follow. I was skeptical at first but the team is legitimate and actually cares about your growth."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SR</div>
+          <div>
+            <div class="testi-name">Sarah R.</div>
+            <div class="testi-handle">@sarahrtrades · Standard Member</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-2">
+        <div class="testi-stars">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p class="testi-text">"Best trading community I've joined by a long shot. The AI strategies are next level and the community is full of people who actually trade."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">DK</div>
+          <div>
+            <div class="testi-name">David K.</div>
+            <div class="testi-handle">@dktrades · Lifetime Member</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ HOW IT WORKS ══════════════════════ -->
+<section id="how" class="how-section">
+  <div class="container">
+    <div class="how-header reveal">
+      <div class="section-eyebrow">Getting Started</div>
+      <h2 class="section-title">Up and trading in<br>under 10 minutes.</h2>
+    </div>
+    <div class="how-steps">
+      <div class="how-step reveal">
+        <div class="how-step-num">01</div>
+        <h3>Sign Up</h3>
+        <p>Choose your plan and complete the secure checkout in under 2 minutes.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-1">
+        <div class="how-step-num">02</div>
+        <h3>Access Discord</h3>
+        <p>Get your instant Discord invite and onboarding guide to get oriented fast.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-2">
+        <div class="how-step-num">03</div>
+        <h3>Receive Signals</h3>
+        <p>Daily signals, market analysis, and AI strategies delivered directly to you.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-3">
+        <div class="how-step-num">04</div>
+        <h3>Execute & Grow</h3>
+        <p>Trade with confidence, track your progress, and scale your account steadily.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ PRICING ══════════════════════ -->
+<section id="pricing" class="pricing-section">
+  <div class="container">
+    <div class="pricing-header reveal">
+      <div class="section-eyebrow">Membership Plans</div>
+      <h2 class="section-title">Pick your path<br>to the markets.</h2>
+      <p class="section-body" style="margin:0 auto;">No contracts. Cancel anytime. Every plan includes access to our private Discord community.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Standard -->
+      <div class="plan-card reveal">
+        <div class="plan-name">Standard</div>
+        <div class="plan-price"><sup>$</sup>49</div>
+        <div class="plan-period">per month · cancel anytime</div>
+        <hr class="plan-divider">
+        <div class="plan-features">
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> Crypto & stock signals</div>
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> Private Discord community</div>
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> Daily market briefings</div>
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> Beginner onboarding guide</div>
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> Copy trading access</div>
+          <div class="plan-feature no"><span class="icon"><i class="fas fa-times"></i></span> AI strategies</div>
+          <div class="plan-feature no"><span class="icon"><i class="fas fa-times"></i></span> Options flow alerts</div>
+          <div class="plan-feature no"><span class="icon"><i class="fas fa-times"></i></span> Priority support</div>
+        </div>
+        <div class="plan-cta">
+          <a href="#" class="btn-ghost">Get Started</a>
+        </div>
+      </div>
+
+      <!-- VIP - Featured -->
+      <div class="plan-card featured reveal reveal-delay-1">
+        <div class="crown-float">👑</div>
+        <div class="plan-badge">Most Popular</div>
+        <div class="plan-name">VIP Access</div>
+        <div class="plan-price"><sup>$</sup>99</div>
+        <div class="plan-period">per month · cancel anytime</div>
+        <hr class="plan-divider" style="border-color:rgba(77,166,255,0.18);">
+        <div class="plan-features">
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> Everything in Standard</div>
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> Premium crypto signals</div>
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> AI-powered strategies</div>
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> Options flow alerts</div>
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> Priority Discord support</div>
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> Weekly live Q&A sessions</div>
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> Forex pair coverage</div>
+          <div class="plan-feature no"><span class="icon"><i class="fas fa-times"></i></span> 1-on-1 onboarding call</div>
+        </div>
+        <div class="plan-cta">
+          <a href="#" class="btn-primary">Go VIP <i class="fas fa-crown" style="color:var(--gold);"></i></a>
+        </div>
+      </div>
+
+      <!-- Lifetime -->
+      <div class="plan-card reveal reveal-delay-2">
+        <div class="plan-name">Lifetime</div>
+        <div class="plan-price" style="color:var(--gold);"><sup>$</sup>499</div>
+        <div class="plan-period">one-time · forever access</div>
+        <hr class="plan-divider">
+        <div class="plan-features">
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> Everything in VIP</div>
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> No monthly fees, ever</div>
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> 1-on-1 onboarding call</div>
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> Early access to features</div>
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> Direct trader line access</div>
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> Lifetime signal updates</div>
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> Founding member badge</div>
+          <div class="plan-feature yes"><span class="icon"><i class="fas fa-check"></i></span> All future features included</div>
+        </div>
+        <div class="plan-cta">
+          <a href="#" class="btn-ghost">Get Lifetime</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ CTA BANNER ══════════════════════ -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-inner reveal">
+      <div class="section-eyebrow" style="justify-content:center;">Ready to Start Winning?</div>
+      <h2>Stop watching others win.<br>Join Alpha Traders today.</h2>
+      <p>Join 3,000+ traders who get our signals every single week.</p>
+      <div class="cta-actions">
+        <a href="#pricing" class="btn-primary" style="font-size:1rem; padding:15px 36px;">
+          <i class="fas fa-bolt"></i> Get Instant Access
+        </a>
+        <a href="#features" class="btn-ghost" style="font-size:1rem; padding:14px 36px;">
+          Learn More
+        </a>
+      </div>
+      <div class="cta-pills">
+        <div class="cta-pill"><i class="fas fa-check-circle"></i> No contracts</div>
+        <div class="cta-pill"><i class="fas fa-check-circle"></i> Cancel anytime</div>
+        <div class="cta-pill"><i class="fas fa-check-circle"></i> Instant Discord access</div>
+        <div class="cta-pill"><i class="fas fa-check-circle"></i> 3,000+ active traders</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ FAQ ══════════════════════ -->
+<section id="faq" class="faq-section">
+  <div class="container">
+    <div class="faq-header reveal">
+      <div class="section-eyebrow">FAQ</div>
+      <h2 class="section-title">Frequently asked<br>questions.</h2>
+      <p class="section-body">Everything you need to know before joining.</p>
+    </div>
+
+    <div class="faq-wrap reveal">
+      <div class="faq-col">
+        <div class="faq-item">
+          <button class="faq-q">Is this suitable for complete beginners? <span class="faq-q-icon"><i class="fas fa-plus"></i></span></button>
+          <div class="faq-body"><p class="faq-a">Absolutely. Every signal includes a clear explanation of the reasoning so you understand the "why" — not just the "what." We also have a dedicated beginner guide inside the community to get you up to speed fast.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Do you guarantee profits? <span class="faq-q-icon"><i class="fas fa-plus"></i></span></button>
+          <div class="faq-body"><p class="faq-a">No — trading always involves risk and no signal provider can guarantee returns. We focus on high-probability, well-reasoned setups with strict risk management frameworks. Your final results depend on how you manage your trades.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">What markets do you cover? <span class="faq-q-icon"><i class="fas fa-plus"></i></span></button>
+          <div class="faq-body"><p class="faq-a">We cover crypto (Bitcoin, Ethereum, altcoins), U.S. equities, options, and select forex pairs. VIP and Lifetime members get full market coverage including advanced options flow alerts and forex pairs.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">How quickly do I get access after joining? <span class="faq-q-icon"><i class="fas fa-plus"></i></span></button>
+          <div class="faq-body"><p class="faq-a">Instantly. As soon as your payment is confirmed, you'll receive a Discord invite link by email. Most members are set up and active within 5 minutes of joining.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-col">
+        <div class="faq-item">
+          <button class="faq-q">How many signals per week? <span class="faq-q-icon"><i class="fas fa-plus"></i></span></button>
+          <div class="faq-body"><p class="faq-a">Quality over quantity — typically 5–12 signals per week depending on market conditions. We only publish setups that meet our strict criteria, never to fill a quota or keep you busy.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Can I cancel my membership anytime? <span class="faq-q-icon"><i class="fas fa-plus"></i></span></button>
+          <div class="faq-body"><p class="faq-a">Yes. Standard and VIP monthly plans can be cancelled at any time with no penalties or fees. Lifetime access is non-refundable given the permanent nature of the membership and access it provides.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">What's the difference between VIP and Standard? <span class="faq-q-icon"><i class="fas fa-plus"></i></span></button>
+          <div class="faq-body"><p class="faq-a">VIP unlocks AI-powered strategies, options flow alerts, forex coverage, weekly live Q&A sessions, and priority support. It's designed for traders who want to go deeper and trade more markets with more precision.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Where is the community hosted? <span class="faq-q-icon"><i class="fas fa-plus"></i></span></button>
+          <div class="faq-body"><p class="faq-a">Our community lives entirely on a private Discord server. Once you join, you'll receive a personalized invite link and a welcome guide so you can navigate every channel and find exactly what you need.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ DISCLAIMER ══════════════════════ -->
+<div class="disclaimer-strip">
+  <div class="container">
+    <div class="disclaimer-inner">
+      <div class="disc-icon"><i class="fas fa-triangle-exclamation"></i></div>
+      <div class="disc-text">
+        <h4>Risk Disclaimer</h4>
+        <p>Alpha Traders Group provides educational trading content and market signal ideas. Trading in financial markets involves significant risk of loss and is not suitable for all investors. Past performance is not indicative of future results. Nothing published by Alpha Traders Group constitutes licensed financial advice. Always trade with capital you can afford to lose and consult a licensed financial advisor before making investment decisions. By joining, you acknowledge and accept these risks in full.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">ALPHA <span>TRADERS</span></div>
+        <p class="footer-tagline">AI-powered trading signals and community for crypto, stocks, and options traders worldwide. Trade smarter. Grow faster.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" title="Discord"><i class="fab fa-discord"></i></a>
+          <a href="#" class="social-link" title="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link" title="Telegram"><i class="fab fa-telegram"></i></a>
+          <a href="#" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <ul class="footer-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#why">Why Us</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul class="footer-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Risk Disclaimer</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Refund Policy</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Support</h5>
+        <ul class="footer-links">
+          <li><a href="#">Discord Support</a></li>
+          <li><a href="#">Email Us</a></li>
+          <li><a href="#">Affiliate Program</a></li>
+          <li><a href="#">Press Kit</a></li>
+          <li><a href="#">Status Page</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Alpha Traders Group. All rights reserved. Built for traders who mean business.</p>
+      <div class="footer-badges">
+        <div class="footer-badge"><i class="fas fa-shield-halved"></i> SSL Secure</div>
+        <div class="footer-badge"><i class="fas fa-lock"></i> Private & Encrypted</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════ SCRIPTS ══════════════════════ -->
+<script>
+/* ─── Hamburger / Mobile Drawer ─── */
+const hamburger = document.getElementById('hamburger');
+const drawer    = document.getElementById('mobileDrawer');
+
+hamburger.addEventListener('click', () => {
+  const isOpen = drawer.classList.toggle('open');
+  hamburger.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+
+drawer.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    drawer.classList.remove('open');
+    hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+/* ─── FAQ Accordion ─── */
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item   = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+
+/* ─── Scroll Reveal ─── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ─── Nav scroll shadow ─── */
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('mainNav');
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+</script>
+
+</body>
+</html>
