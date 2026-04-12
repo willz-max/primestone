@@ -818,11 +818,30 @@ section { padding: 100px 0; }
 }
 
 /* ── Testimonial text cards ── */
-.testimonials-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+/* ── Testimonials Infinite Marquee Carousel ── */
+.testi-carousel {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0;
+  /* fade edges */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+
+.testi-track {
+  display: flex;
   gap: 18px;
-  margin-top: 0;
+  width: max-content;
+  animation: testiScroll 40s linear infinite;
+}
+
+.testi-carousel:hover .testi-track {
+  animation-play-state: paused;
+}
+
+@keyframes testiScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .testi-card {
@@ -832,8 +851,21 @@ section { padding: 100px 0; }
   padding: 28px;
   position: relative;
   overflow: hidden;
-  transition: transform var(--trans), border-color var(--trans), box-shadow var(--trans);
+  transition: border-color var(--trans), box-shadow var(--trans);
+  /* fixed widths so cards are always consistent */
+  width: 360px;
+  flex-shrink: 0;
+  cursor: default;
 }
+
+@media (max-width: 860px) {
+  .testi-card { width: 300px; }
+}
+
+@media (max-width: 540px) {
+  .testi-card { width: calc(100vw - 64px); }
+}
+
 .testi-card::before {
   content: '';
   position: absolute;
@@ -843,7 +875,10 @@ section { padding: 100px 0; }
   opacity: 0;
   transition: opacity var(--trans);
 }
-.testi-card:hover { transform: translateY(-4px); border-color: rgba(77,166,255,0.2); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+.testi-card:hover {
+  border-color: rgba(77,166,255,0.2);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+}
 .testi-card:hover::before { opacity: 1; }
 
 .testi-quote { font-size: 2.2rem; color: var(--accent); opacity: 0.18; font-family: Georgia,serif; line-height: 1; margin-bottom: 8px; }
@@ -1400,8 +1435,7 @@ footer {
 .products-header .section-body { margin: 0 auto; margin-top: 12px; }
 
 .products-header .section-title span {
-  font-style: italic;
-  background: linear-gradient(135deg, var(--gold), #d97706);
+  background: linear-gradient(135deg, var(--accent), var(--violet));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1483,8 +1517,8 @@ footer {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--dim);
-  background: var(--surface2);
+  color: var(--accent-warm);
+  background: var(--accent-dim2);
 }
 
 .product-explore {
@@ -1495,13 +1529,13 @@ footer {
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--accent);
   transition: gap var(--trans), color var(--trans);
 }
 
 .product-card:hover .product-explore {
   gap: 10px;
-  color: #fcd34d;
+  color: var(--accent-warm);
 }
 
 /* ═══════════════════════════════════════════════════
@@ -1522,8 +1556,7 @@ footer {
 .regulatory-header .section-body { margin: 0 auto; margin-top: 12px; }
 
 .regulatory-header .section-title span {
-  font-style: italic;
-  background: linear-gradient(135deg, var(--gold), #d97706);
+  background: linear-gradient(135deg, var(--accent), var(--violet));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1549,9 +1582,9 @@ footer {
 }
 
 .regulatory-card:hover {
-  border-color: rgba(251,191,36,0.25);
+  border-color: rgba(77,166,255,0.25);
   transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(77,166,255,0.06);
 }
 
 .regulatory-logo {
@@ -1575,7 +1608,7 @@ footer {
 
 .regulatory-logo i {
   font-size: 1.6rem;
-  color: var(--gold);
+  color: var(--accent);
 }
 
 .regulatory-name {
@@ -1591,7 +1624,7 @@ footer {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--accent);
 }
 
 /* Center card for 5th item */
@@ -1632,12 +1665,13 @@ footer {
 }
 
 .reg-badge:hover {
-  border-color: rgba(251,191,36,0.3);
+  border-color: rgba(77,166,255,0.3);
   transform: translateY(-2px);
+  background: var(--accent-dim2);
 }
 
 .reg-badge i {
-  color: var(--gold);
+  color: var(--accent);
   font-size: 1rem;
 }
 
@@ -1681,7 +1715,6 @@ footer {
 
   /* Reviews */
   .screenshots-grid { columns: 2; }
-  .testimonials-row { grid-template-columns: 1fr 1fr; }
   .reviews-trust { gap: 20px; justify-content: center; }
 
   /* FAQ */
@@ -1714,7 +1747,6 @@ footer {
 
   /* Reviews */
   .screenshots-grid { columns: 1; }
-  .testimonials-row { grid-template-columns: 1fr; }
   .reviews-trust { flex-direction: column; align-items: center; gap: 14px; }
   .trust-item { justify-content: center; }
 
@@ -1759,7 +1791,7 @@ footer {
 <!-- ══════════════════════ NAV ══════════════════════ -->
 <nav id="mainNav">
   <a class="nav-logo" href="#">
-    <div class="nav-logo-icon"><img src="/assets/logo-trade-bgno.png" alt="PrimeStone Logo"></div>
+    <div class="nav-logo-icon"><img src="/assets/logo.png" alt="PrimeStone Logo"></div>
     <!-- <span class="logo-alpha">Alpha</span>&nbsp;Traders -->
   </a>
 
@@ -1767,8 +1799,8 @@ footer {
     <li><a href="#features">Features</a></li>
     <li><a href="#products">Products</a></li>
     <li><a href="#why">Why Us</a></li>
-    <li><a href="#reviews">Reviews</a></li>
     <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#reviews">Reviews</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
 
@@ -1789,8 +1821,8 @@ footer {
   <a href="#features" class="drawer-link"><i class="fas fa-bolt" style="color:var(--accent);width:16px;text-align:center;"></i> Features</a>
   <a href="#products" class="drawer-link"><i class="fas fa-layer-group" style="color:var(--accent);width:16px;text-align:center;"></i> Products</a>
   <a href="#why" class="drawer-link"><i class="fas fa-shield-halved" style="color:var(--violet);width:16px;text-align:center;"></i> Why Us</a>
-  <a href="#reviews" class="drawer-link"><i class="fas fa-chart-line" style="color:var(--teal);width:16px;text-align:center;"></i> Reviews</a>
   <a href="#pricing" class="drawer-link"><i class="fas fa-tags" style="color:var(--gold);width:16px;text-align:center;"></i> Pricing</a>
+  <a href="#reviews" class="drawer-link"><i class="fas fa-chart-line" style="color:var(--teal);width:16px;text-align:center;"></i> Reviews</a>
   <a href="#faq" class="drawer-link"><i class="fas fa-circle-question" style="color:var(--dim);width:16px;text-align:center;"></i> FAQ</a>
   <div class="drawer-divider"></div>
   <a href="#pricing" class="drawer-link mobile-cta"><i class="fas fa-bolt"></i> Get Instant Access</a>
@@ -1926,7 +1958,7 @@ footer {
 
       <!-- Copy Trading -->
       <div class="product-card reveal">
-        <img src="assets/product-copy-trading.jpg" alt="Copy Trading" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="assets/copy_trading.avif" alt="Copy Trading" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="product-card-img-placeholder" style="display:none;"><i class="fas fa-copy"></i></div>
         <div class="product-card-body">
           <div class="product-card-title">Copy Trading</div>
@@ -1941,7 +1973,7 @@ footer {
 
       <!-- Cryptocurrency Trading -->
       <div class="product-card reveal reveal-delay-1">
-        <img src="assets/product-crypto.jpg" alt="Cryptocurrency Trading" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="assets/cryptocurrency.avif" alt="Cryptocurrency Trading" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="product-card-img-placeholder" style="display:none;"><i class="fab fa-bitcoin"></i></div>
         <div class="product-card-body">
           <div class="product-card-title">Cryptocurrency Trading</div>
@@ -1956,7 +1988,7 @@ footer {
 
       <!-- Exchange Traded Funds -->
       <div class="product-card reveal reveal-delay-2">
-        <img src="assets/product-etf.jpg" alt="Exchange Traded Funds" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="assets/etf.avif" alt="Exchange Traded Funds" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="product-card-img-placeholder" style="display:none;"><i class="fas fa-chart-pie"></i></div>
         <div class="product-card-body">
           <div class="product-card-title">Exchange Traded Funds</div>
@@ -1971,7 +2003,7 @@ footer {
 
       <!-- Global Forex Trading -->
       <div class="product-card reveal reveal-delay-1">
-        <img src="assets/product-forex.jpg" alt="Global Forex Trading" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="assets/global_ft.avif" alt="Global Forex Trading" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="product-card-img-placeholder" style="display:none;"><i class="fas fa-globe"></i></div>
         <div class="product-card-body">
           <div class="product-card-title">Global Forex Trading</div>
@@ -1986,7 +2018,7 @@ footer {
 
       <!-- Global Stock CFDs -->
       <div class="product-card reveal reveal-delay-2">
-        <img src="assets/product-stocks.jpg" alt="Global Stock CFDs" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="assets/global_cdf.webp" alt="Global Stock CFDs" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="product-card-img-placeholder" style="display:none;"><i class="fas fa-chart-line"></i></div>
         <div class="product-card-body">
           <div class="product-card-title">Global Stock CFDs</div>
@@ -2001,7 +2033,7 @@ footer {
 
       <!-- Commodities CFDs -->
       <div class="product-card reveal reveal-delay-3">
-        <img src="assets/product-commodities.jpg" alt="Commodities CFDs" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="assets/commodities_cfds.jpg" alt="Commodities CFDs" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="product-card-img-placeholder" style="display:none;"><i class="fas fa-coins"></i></div>
         <div class="product-card-body">
           <div class="product-card-title">Commodities CFDs</div>
@@ -2014,6 +2046,40 @@ footer {
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ══════════════════════ HOW IT WORKS ══════════════════════ -->
+<section id="how" class="how-section">
+  <div class="container">
+    <div class="how-header reveal">
+      <div class="section-eyebrow">Getting Started</div>
+      <h2 class="section-title">Up and trading in<br>under 10 minutes.</h2>
+    </div>
+    <div class="how-steps">
+      <div class="how-step reveal">
+        <div class="how-step-num">01</div>
+        <h3>Sign Up</h3>
+        <p>Choose your plan and complete the secure checkout in under 2 minutes.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-1">
+        <div class="how-step-num">02</div>
+        <h3>Access Discord</h3>
+        <p>Get your instant Discord invite and onboarding guide to get oriented fast.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-2">
+        <div class="how-step-num">03</div>
+        <h3>Receive Signals</h3>
+        <p>Daily signals, market analysis, and AI strategies delivered directly to you.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-3">
+        <div class="how-step-num">04</div>
+        <h3>Execute & Grow</h3>
+        <p>Trade with confidence, track your progress, and scale your account steadily.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -2075,146 +2141,8 @@ footer {
   </div>
 </section>
 
-<!-- ══════════════════════ REVIEWS ══════════════════════ -->
-<section id="reviews" class="reviews-section">
-  <div class="container">
 
-    <div class="reviews-header reveal">
-      <div class="section-eyebrow">Member Reviews</div>
-      <h2 class="section-title">Real traders.<br>Real results.</h2>
-      <p class="section-body" style="margin: 0 auto; margin-top: 12px;">Members across all experience levels are hitting consistent profits. Here's proof from the community.</p>
-    </div>
 
-    <!-- ══ Screenshot masonry — replace placeholder divs with <img> tags when ready ══ -->
-    <div class="screenshots-grid">
-
-      <div class="screenshot-card reveal">
-       
-        <div class="screenshot-placeholder">
-          <!-- <i class="fas fa-image"></i> -->
-          <img src="assets/testimonial-1.jpg" alt="Member result">
-        </div>
-      </div>
-
-      <div class="screenshot-card reveal reveal-delay-1">
-        
-        <div class="screenshot-placeholder">
-          <!-- <i class="fas fa-image"></i> -->
-          <img src="assets/testimonial-2.jpg" alt="Member result">
-        </div>
-      </div>
-
-      <div class="screenshot-card reveal reveal-delay-2">
-        <div class="screenshot-placeholder">
-          <!-- <i class="fas fa-image"></i> -->
-            <img src="assets/testimonial-3.jpg" alt="Member result">
-        </div>
-      </div>
-
-    </div>
-    <!-- To add more screenshots, just copy a .screenshot-card block above and add your image -->
-
-    <!-- ══ Divider ══ -->
-    <div class="reviews-divider reveal">
-      <div class="reviews-divider-line"></div>
-      <div class="reviews-divider-label">What members say</div>
-      <div class="reviews-divider-line"></div>
-    </div>
-
-    <!-- ══ Text testimonial cards ══ -->
-    <div class="testimonials-row">
-
-      <div class="testi-card reveal">
-        <span class="testi-badge vip">VIP</span>
-        <div class="testi-quote">"</div>
-        <div class="testi-stars">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-        </div>
-        <p class="testi-text">"Made my first consistent profits within weeks of joining. The signals are clear and the explanations actually teach you something real."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">JM</div>
-          <div>
-            <div class="testi-name">James M.</div>
-            <div class="testi-handle">@jmtrades · VIP Member</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card reveal reveal-delay-1">
-        <div class="testi-quote">"</div>
-        <div class="testi-stars">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-        </div>
-        <p class="testi-text">"Signals are accurate and super easy to follow. I was skeptical at first but the team is legitimate and actually cares about your growth."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">SR</div>
-          <div>
-            <div class="testi-name">Sarah R.</div>
-            <div class="testi-handle">@sarahrtrades · Standard Member</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card reveal reveal-delay-2">
-        <span class="testi-badge life">Lifetime</span>
-        <div class="testi-quote">"</div>
-        <div class="testi-stars">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-        </div>
-        <p class="testi-text">"Best trading community I've ever joined. The AI strategies are next level and everyone here actually trades — no hype, just results."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">DK</div>
-          <div>
-            <div class="testi-name">David K.</div>
-            <div class="testi-handle">@dktrades · Lifetime Member</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ══ Trust strip ══ -->
-    <div class="reviews-trust reveal">
-      <div class="trust-item"><i class="fas fa-users"></i><span><strong>3,000+</strong> Active Members</span></div>
-      <div class="trust-item"><i class="fas fa-star"></i><span><strong>4.9 / 5</strong> Average Rating</span></div>
-      <div class="trust-item"><i class="fas fa-chart-line"></i><span><strong>85%</strong> Signal Accuracy</span></div>
-      <div class="trust-item"><i class="fas fa-shield-halved"></i><span><strong>Verified</strong> Real Members</span></div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ══════════════════════ HOW IT WORKS ══════════════════════ -->
-<section id="how" class="how-section">
-  <div class="container">
-    <div class="how-header reveal">
-      <div class="section-eyebrow">Getting Started</div>
-      <h2 class="section-title">Up and trading in<br>under 10 minutes.</h2>
-    </div>
-    <div class="how-steps">
-      <div class="how-step reveal">
-        <div class="how-step-num">01</div>
-        <h3>Sign Up</h3>
-        <p>Choose your plan and complete the secure checkout in under 2 minutes.</p>
-      </div>
-      <div class="how-step reveal reveal-delay-1">
-        <div class="how-step-num">02</div>
-        <h3>Access Discord</h3>
-        <p>Get your instant Discord invite and onboarding guide to get oriented fast.</p>
-      </div>
-      <div class="how-step reveal reveal-delay-2">
-        <div class="how-step-num">03</div>
-        <h3>Receive Signals</h3>
-        <p>Daily signals, market analysis, and AI strategies delivered directly to you.</p>
-      </div>
-      <div class="how-step reveal reveal-delay-3">
-        <div class="how-step-num">04</div>
-        <h3>Execute & Grow</h3>
-        <p>Trade with confidence, track your progress, and scale your account steadily.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ══════════════════════ PRICING ══════════════════════ -->
 <section id="pricing" class="pricing-section">
@@ -2319,6 +2247,210 @@ footer {
   </div>
 </section>
 
+<!-- ══════════════════════ REVIEWS ══════════════════════ -->
+<section id="reviews" class="reviews-section">
+  <div class="container">
+
+    <div class="reviews-header reveal">
+      <div class="section-eyebrow">Member Reviews</div>
+      <h2 class="section-title">Real traders.<br>Real results.</h2>
+      <p class="section-body" style="margin: 0 auto; margin-top: 12px;">Members across all experience levels are hitting consistent profits. Here's proof from the community.</p>
+    </div>
+
+    <!-- ══ Screenshot masonry — replace placeholder divs with <img> tags when ready ══ -->
+    <div class="screenshots-grid">
+
+      <div class="screenshot-card reveal">
+       
+        <div class="screenshot-placeholder">
+          <!-- <i class="fas fa-image"></i> -->
+          <img src="assets/testimonial-1.jpg" alt="Member result">
+        </div>
+      </div>
+
+      <div class="screenshot-card reveal reveal-delay-1">
+        
+        <div class="screenshot-placeholder">
+          <!-- <i class="fas fa-image"></i> -->
+          <img src="assets/testimonial-2.jpg" alt="Member result">
+        </div>
+      </div>
+
+      <div class="screenshot-card reveal reveal-delay-2">
+        <div class="screenshot-placeholder">
+          <!-- <i class="fas fa-image"></i> -->
+            <img src="assets/testimonial-3.jpg" alt="Member result">
+        </div>
+      </div>
+
+    </div>
+    <!-- To add more screenshots, just copy a .screenshot-card block above and add your image -->
+
+    <!-- ══ Divider ══ -->
+    <div class="reviews-divider reveal">
+      <div class="reviews-divider-line"></div>
+      <div class="reviews-divider-label">What members say</div>
+      <div class="reviews-divider-line"></div>
+    </div>
+
+    <!-- ══ Testimonials infinite marquee ══ -->
+    <div class="testi-carousel reveal">
+      <div class="testi-track" id="testiTrack">
+
+        <!-- SET 1 — original 9 cards -->
+        <div class="testi-card">
+          <span class="testi-badge vip">VIP</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Made my first consistent profits within weeks of joining. The signals are clear and the explanations actually teach you something real."</p>
+          <div class="testi-author"><div class="testi-avatar">JM</div><div><div class="testi-name">James M.</div><div class="testi-handle">@jmtrades · VIP Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Signals are accurate and super easy to follow. I was skeptical at first but the team is legitimate and actually cares about your growth."</p>
+          <div class="testi-author"><div class="testi-avatar">SR</div><div><div class="testi-name">Sarah R.</div><div class="testi-handle">@sarahrtrades · Standard Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge life">Lifetime</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Best trading community I've ever joined. The AI strategies are next level and everyone here actually trades — no hype, just results."</p>
+          <div class="testi-author"><div class="testi-avatar">DK</div><div><div class="testi-name">David K.</div><div class="testi-handle">@dktrades · Lifetime Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge vip">VIP</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"I went from losing trades every week to hitting targets consistently. The morning briefings alone are worth the membership price — absolute game changer."</p>
+          <div class="testi-author"><div class="testi-avatar">TW</div><div><div class="testi-name">Tyler W.</div><div class="testi-handle">@tylerwtrader · VIP Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Copy trading feature is brilliant. I follow two of the top traders and my portfolio has grown 34% in 3 months without staring at charts all day."</p>
+          <div class="testi-author"><div class="testi-avatar">AN</div><div><div class="testi-name">Anika N.</div><div class="testi-handle">@anika.trades · Standard Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge life">Lifetime</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"The options flow alerts in VIP are something else. I've been trading 6 years and this is the first signal service that actually delivers what it promises."</p>
+          <div class="testi-author"><div class="testi-avatar">MC</div><div><div class="testi-name">Marcus C.</div><div class="testi-handle">@marcus_cfx · Lifetime Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Joined as a total beginner and the community made the learning curve so much easier. The weekly Q&As are priceless — ask anything and get real answers."</p>
+          <div class="testi-author"><div class="testi-avatar">LE</div><div><div class="testi-name">Lena E.</div><div class="testi-handle">@lena_investing · Standard Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge vip">VIP</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"What separates Alpha Traders from every other group is transparency. They show losses too. That honesty built my trust immediately and kept me long-term."</p>
+          <div class="testi-author"><div class="testi-avatar">RO</div><div><div class="testi-name">Raj O.</div><div class="testi-handle">@rajotrades · VIP Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge life">Lifetime</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Got lifetime access and haven't looked back. The AI strategy updates keep things fresh and the team genuinely listens to members. Best investment I've made."</p>
+          <div class="testi-author"><div class="testi-avatar">ZB</div><div><div class="testi-name">Zoe B.</div><div class="testi-handle">@zoebfx · Lifetime Member</div></div></div>
+        </div>
+
+        <!-- SET 2 — exact duplicate for seamless infinite loop -->
+        <div class="testi-card">
+          <span class="testi-badge vip">VIP</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Made my first consistent profits within weeks of joining. The signals are clear and the explanations actually teach you something real."</p>
+          <div class="testi-author"><div class="testi-avatar">JM</div><div><div class="testi-name">James M.</div><div class="testi-handle">@jmtrades · VIP Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Signals are accurate and super easy to follow. I was skeptical at first but the team is legitimate and actually cares about your growth."</p>
+          <div class="testi-author"><div class="testi-avatar">SR</div><div><div class="testi-name">Sarah R.</div><div class="testi-handle">@sarahrtrades · Standard Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge life">Lifetime</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Best trading community I've ever joined. The AI strategies are next level and everyone here actually trades — no hype, just results."</p>
+          <div class="testi-author"><div class="testi-avatar">DK</div><div><div class="testi-name">David K.</div><div class="testi-handle">@dktrades · Lifetime Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge vip">VIP</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"I went from losing trades every week to hitting targets consistently. The morning briefings alone are worth the membership price — absolute game changer."</p>
+          <div class="testi-author"><div class="testi-avatar">TW</div><div><div class="testi-name">Tyler W.</div><div class="testi-handle">@tylerwtrader · VIP Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Copy trading feature is brilliant. I follow two of the top traders and my portfolio has grown 34% in 3 months without staring at charts all day."</p>
+          <div class="testi-author"><div class="testi-avatar">AN</div><div><div class="testi-name">Anika N.</div><div class="testi-handle">@anika.trades · Standard Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge life">Lifetime</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"The options flow alerts in VIP are something else. I've been trading 6 years and this is the first signal service that actually delivers what it promises."</p>
+          <div class="testi-author"><div class="testi-avatar">MC</div><div><div class="testi-name">Marcus C.</div><div class="testi-handle">@marcus_cfx · Lifetime Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Joined as a total beginner and the community made the learning curve so much easier. The weekly Q&As are priceless — ask anything and get real answers."</p>
+          <div class="testi-author"><div class="testi-avatar">LE</div><div><div class="testi-name">Lena E.</div><div class="testi-handle">@lena_investing · Standard Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge vip">VIP</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"What separates Alpha Traders from every other group is transparency. They show losses too. That honesty built my trust immediately and kept me long-term."</p>
+          <div class="testi-author"><div class="testi-avatar">RO</div><div><div class="testi-name">Raj O.</div><div class="testi-handle">@rajotrades · VIP Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge life">Lifetime</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Got lifetime access and haven't looked back. The AI strategy updates keep things fresh and the team genuinely listens to members. Best investment I've made."</p>
+          <div class="testi-author"><div class="testi-avatar">ZB</div><div><div class="testi-name">Zoe B.</div><div class="testi-handle">@zoebfx · Lifetime Member</div></div></div>
+        </div>
+
+      </div><!-- /testi-track -->
+    </div><!-- /testi-carousel -->
+
+    <!-- ══ Trust strip ══ -->
+    <div class="reviews-trust reveal">
+      <div class="trust-item"><i class="fas fa-users"></i><span><strong>3,000+</strong> Active Members</span></div>
+      <div class="trust-item"><i class="fas fa-star"></i><span><strong>4.9 / 5</strong> Average Rating</span></div>
+      <div class="trust-item"><i class="fas fa-chart-line"></i><span><strong>85%</strong> Signal Accuracy</span></div>
+      <div class="trust-item"><i class="fas fa-shield-halved"></i><span><strong>Verified</strong> Real Members</span></div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ══════════════════════ FAQ ══════════════════════ -->
 <section id="faq" class="faq-section">
   <div class="container">
@@ -2385,7 +2517,7 @@ footer {
 
       <div class="regulatory-card">
         <div class="regulatory-logo">
-          <img src="assets/reg-ftc.png" alt="FTC" onerror="this.style.display='none';this.parentElement.querySelector('i').style.display='block';">
+          <img src="assets/fcc-logo.png" alt="FTC" onerror="this.style.display='none';this.parentElement.querySelector('i').style.display='block';">
           <i class="fas fa-landmark" style="display:none;"></i>
         </div>
         <div>
@@ -2396,7 +2528,7 @@ footer {
 
       <div class="regulatory-card">
         <div class="regulatory-logo">
-          <img src="assets/reg-fcc.png" alt="FCC" onerror="this.style.display='none';this.parentElement.querySelector('i').style.display='block';">
+          <img src="assets/fcc-logo.png" alt="FCC" onerror="this.style.display='none';this.parentElement.querySelector('i').style.display='block';">
           <i class="fas fa-broadcast-tower" style="display:none;"></i>
         </div>
         <div>
@@ -2407,7 +2539,7 @@ footer {
 
       <div class="regulatory-card">
         <div class="regulatory-logo">
-          <img src="assets/reg-doj.png" alt="DOJ" onerror="this.style.display='none';this.parentElement.querySelector('i').style.display='block';">
+          <img src="assets/doj-logo.png" alt="DOJ" onerror="this.style.display='none';this.parentElement.querySelector('i').style.display='block';">
           <i class="fas fa-gavel" style="display:none;"></i>
         </div>
         <div>
@@ -2418,8 +2550,8 @@ footer {
 
       <div class="regulatory-card">
         <div class="regulatory-logo">
-          <img src="assets/reg-copyright.png" alt="US Copyright Office" onerror="this.style.display='none';this.parentElement.querySelector('i').style.display='block';">
-          <i class="fas fa-copyright" style="display:none;"></i>
+          <img src="assets/usco-logo.png" alt="US Copyright Office" onerror="this.style.display='none';this.parentElement.querySelector('i').style.display='block';">
+          <!-- <i class="fas fa-copyright" style="display:none;"></i> -->
         </div>
         <div>
           <div class="regulatory-name">United States Copyright Office</div>
@@ -2433,8 +2565,8 @@ footer {
     <div class="regulatory-center reveal">
       <div class="regulatory-card">
         <div class="regulatory-logo">
-          <img src="assets/reg-icann.png" alt="ICANN" onerror="this.style.display='none';this.parentElement.querySelector('i').style.display='block';">
-          <i class="fas fa-globe" style="display:none;"></i>
+          <img src="assets/icann-logo.png" alt="ICANN" onerror="this.style.display='none';this.parentElement.querySelector('i').style.display='block';">
+          <!-- <i class="fas fa-globe" style="display:none;"></i> -->
         </div>
         <div>
           <div class="regulatory-name">ICANN</div>

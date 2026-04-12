@@ -818,11 +818,30 @@ section { padding: 100px 0; }
 }
 
 /* ── Testimonial text cards ── */
-.testimonials-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+/* ── Testimonials Infinite Marquee Carousel ── */
+.testi-carousel {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0;
+  /* fade edges */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+
+.testi-track {
+  display: flex;
   gap: 18px;
-  margin-top: 0;
+  width: max-content;
+  animation: testiScroll 40s linear infinite;
+}
+
+.testi-carousel:hover .testi-track {
+  animation-play-state: paused;
+}
+
+@keyframes testiScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .testi-card {
@@ -832,8 +851,21 @@ section { padding: 100px 0; }
   padding: 28px;
   position: relative;
   overflow: hidden;
-  transition: transform var(--trans), border-color var(--trans), box-shadow var(--trans);
+  transition: border-color var(--trans), box-shadow var(--trans);
+  /* fixed widths so cards are always consistent */
+  width: 360px;
+  flex-shrink: 0;
+  cursor: default;
 }
+
+@media (max-width: 860px) {
+  .testi-card { width: 300px; }
+}
+
+@media (max-width: 540px) {
+  .testi-card { width: calc(100vw - 64px); }
+}
+
 .testi-card::before {
   content: '';
   position: absolute;
@@ -843,7 +875,10 @@ section { padding: 100px 0; }
   opacity: 0;
   transition: opacity var(--trans);
 }
-.testi-card:hover { transform: translateY(-4px); border-color: rgba(77,166,255,0.2); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+.testi-card:hover {
+  border-color: rgba(77,166,255,0.2);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+}
 .testi-card:hover::before { opacity: 1; }
 
 .testi-quote { font-size: 2.2rem; color: var(--accent); opacity: 0.18; font-family: Georgia,serif; line-height: 1; margin-bottom: 8px; }
@@ -1368,6 +1403,491 @@ footer {
 .footer-badge i { color: var(--teal); }
 
 /* ═══════════════════════════════════════════════════
+   PREMIUM TRADING ROOM
+═══════════════════════════════════════════════════ */
+.trading-room-section {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.trading-room-section .section-eyebrow { justify-content: center; }
+
+.room-header-row {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+/* Stats bar */
+.room-stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 56px;
+}
+
+.room-stat-item {
+  padding: 24px 20px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: background var(--trans);
+}
+
+.room-stat-item:last-child { border-right: none; }
+.room-stat-item:hover { background: var(--surface3); }
+
+.room-stat-icon {
+  width: 42px;
+  height: 42px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-radius: var(--radius);
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.room-stat-icon.violet { background: var(--violet-dim); color: var(--violet); }
+.room-stat-icon.teal   { background: var(--teal-dim);   color: var(--teal);   }
+.room-stat-icon.gold   { background: var(--gold-dim);   color: var(--gold);   }
+
+.room-stat-num {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--white);
+  display: block;
+  line-height: 1.1;
+}
+
+.room-stat-label {
+  font-size: 0.72rem;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 2px;
+}
+
+/* Main 2-col layout */
+.room-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 24px;
+  margin-bottom: 56px;
+}
+
+/* Live feed panel */
+.room-panel {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.room-panel-header {
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface3);
+  flex-shrink: 0;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--teal);
+  border-radius: 50%;
+  animation: livePulse 1.6s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes livePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0.5); }
+  50%       { box-shadow: 0 0 0 6px rgba(52,211,153,0); }
+}
+
+.room-panel-title {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.02em;
+}
+
+.room-panel-count {
+  margin-left: auto;
+  background: rgba(52,211,153,0.1);
+  border: 1px solid rgba(52,211,153,0.25);
+  color: var(--teal);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.04em;
+}
+
+.room-feed {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 420px;
+}
+
+.room-feed::-webkit-scrollbar { width: 3px; }
+.room-feed::-webkit-scrollbar-track { background: transparent; }
+.room-feed::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+.feed-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 20px;
+  border-bottom: 1px solid rgba(138,180,248,0.05);
+  transition: background var(--trans);
+  animation: feedSlideIn 0.4s cubic-bezier(.16,1,.3,1);
+}
+
+@keyframes feedSlideIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.feed-row:hover { background: var(--surface3); }
+
+.feed-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--border2);
+  flex-shrink: 0;
+  background: var(--surface3);
+}
+
+.feed-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.feed-name  { font-size: 0.85rem; font-weight: 600; color: var(--white); }
+.feed-action { font-size: 0.74rem; color: var(--dim); margin-top: 1px; }
+.feed-action strong { color: var(--white2); font-weight: 500; }
+
+.feed-gain {
+  margin-left: auto;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.feed-gain.pos { color: var(--teal); }
+.feed-gain.neg { color: var(--red); }
+
+/* Quick stats column */
+.room-quick-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  align-content: start;
+}
+
+.room-quick-card {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 22px 18px;
+  text-align: center;
+  transition: border-color var(--trans), transform var(--trans), box-shadow var(--trans);
+  position: relative;
+  overflow: hidden;
+}
+
+.room-quick-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 20%; right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(77,166,255,0.4), transparent);
+  opacity: 0;
+  transition: opacity var(--trans);
+}
+
+.room-quick-card:hover {
+  border-color: rgba(77,166,255,0.22);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+}
+
+.room-quick-card:hover::before { opacity: 1; }
+
+.room-quick-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-radius: var(--radius);
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  margin: 0 auto 12px;
+}
+
+.room-quick-icon.teal   { background: var(--teal-dim);   color: var(--teal); }
+.room-quick-icon.violet { background: var(--violet-dim); color: var(--violet); }
+.room-quick-icon.gold   { background: var(--gold-dim);   color: var(--gold); }
+
+.room-quick-card h4 {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.room-quick-card p {
+  font-size: 0.78rem;
+  color: var(--dim);
+  line-height: 1.6;
+}
+
+/* Elite investors */
+.elite-header-row {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+/* Filter bar */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 36px;
+}
+
+.filter-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  color: var(--dim);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all var(--trans);
+}
+
+.filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim2);
+}
+
+.filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0d1117;
+}
+
+/* Elite cards grid */
+.elite-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.elite-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px 22px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--trans), transform var(--trans), box-shadow var(--trans);
+}
+
+.elite-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity var(--trans);
+}
+
+.elite-card:hover {
+  border-color: rgba(77,166,255,0.25);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(77,166,255,0.08);
+}
+
+.elite-card:hover::before { opacity: 1; }
+
+.elite-avatar {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--border3);
+  margin: 0 auto 14px;
+  box-shadow: 0 0 0 4px rgba(77,166,255,0.06);
+  background: var(--surface3);
+}
+
+.elite-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.elite-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 3px;
+}
+
+.elite-spec {
+  font-size: 0.74rem;
+  color: var(--dim);
+  margin-bottom: 18px;
+  letter-spacing: 0.03em;
+}
+
+.elite-gain {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--teal);
+  line-height: 1;
+}
+
+.elite-gain-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+  margin-top: 3px;
+  margin-bottom: 12px;
+}
+
+.elite-meta {
+  font-size: 0.76rem;
+  color: var(--dim);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.elite-meta span { color: var(--teal); font-weight: 600; }
+
+.risk-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 16px;
+}
+
+.risk-pill.low  { background: rgba(52,211,153,0.1);  color: var(--teal);   border: 1px solid rgba(52,211,153,0.25); }
+.risk-pill.med  { background: rgba(251,191,36,0.1);  color: var(--gold);   border: 1px solid rgba(251,191,36,0.25); }
+.risk-pill.high { background: rgba(248,113,113,0.1); color: var(--red);    border: 1px solid rgba(248,113,113,0.25); }
+
+.btn-copy-trader {
+  width: 100%;
+  background: var(--accent-dim2);
+  border: 1px solid var(--border3);
+  color: var(--accent);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all var(--trans);
+}
+
+.btn-copy-trader:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0d1117;
+  box-shadow: 0 4px 16px var(--accent-glow);
+}
+
+/* Live pill badge */
+.live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal);
+  background: rgba(52,211,153,0.08);
+  border: 1px solid rgba(52,211,153,0.25);
+  border-radius: var(--radius-pill);
+  padding: 3px 8px;
+}
+
+.live-dot-sm {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--teal);
+  animation: livePulse 1.4s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .room-main-grid { grid-template-columns: 1fr; }
+  .room-quick-stats { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 860px) {
+  .room-stats-bar { grid-template-columns: 1fr 1fr; }
+  .room-stat-item { border-bottom: 1px solid var(--border); }
+  .room-stat-item:nth-child(2) { border-right: none; }
+  .room-stat-item:nth-child(3), .room-stat-item:nth-child(4) { border-bottom: none; }
+  .elite-grid { grid-template-columns: 1fr 1fr; }
+  .room-quick-stats { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 560px) {
+  .room-stats-bar { grid-template-columns: 1fr 1fr; }
+  .elite-grid { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; }
+  .room-quick-stats { grid-template-columns: 1fr 1fr; }
+  .room-stat-num { font-size: 1.1rem; }
+}
+
+/* ═══════════════════════════════════════════════════
    SCROLL ANIMATIONS
 ═══════════════════════════════════════════════════ */
 .reveal {
@@ -1680,7 +2200,6 @@ footer {
 
   /* Reviews */
   .screenshots-grid { columns: 2; }
-  .testimonials-row { grid-template-columns: 1fr 1fr; }
   .reviews-trust { gap: 20px; justify-content: center; }
 
   /* FAQ */
@@ -1713,7 +2232,6 @@ footer {
 
   /* Reviews */
   .screenshots-grid { columns: 1; }
-  .testimonials-row { grid-template-columns: 1fr; }
   .reviews-trust { flex-direction: column; align-items: center; gap: 14px; }
   .trust-item { justify-content: center; }
 
@@ -1765,9 +2283,10 @@ footer {
   <ul class="nav-links">
     <li><a href="#features">Features</a></li>
     <li><a href="#products">Products</a></li>
+    <li><a href="#trading-room">Live Room</a></li>
     <li><a href="#why">Why Us</a></li>
-    <li><a href="#reviews">Reviews</a></li>
     <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#reviews">Reviews</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
 
@@ -1787,9 +2306,10 @@ footer {
   </div>
   <a href="#features" class="drawer-link"><i class="fas fa-bolt" style="color:var(--accent);width:16px;text-align:center;"></i> Features</a>
   <a href="#products" class="drawer-link"><i class="fas fa-layer-group" style="color:var(--accent);width:16px;text-align:center;"></i> Products</a>
+  <a href="#trading-room" class="drawer-link"><i class="fas fa-chart-line" style="color:var(--teal);width:16px;text-align:center;"></i> Live Room</a>
   <a href="#why" class="drawer-link"><i class="fas fa-shield-halved" style="color:var(--violet);width:16px;text-align:center;"></i> Why Us</a>
-  <a href="#reviews" class="drawer-link"><i class="fas fa-chart-line" style="color:var(--teal);width:16px;text-align:center;"></i> Reviews</a>
   <a href="#pricing" class="drawer-link"><i class="fas fa-tags" style="color:var(--gold);width:16px;text-align:center;"></i> Pricing</a>
+  <a href="#reviews" class="drawer-link"><i class="fas fa-chart-line" style="color:var(--teal);width:16px;text-align:center;"></i> Reviews</a>
   <a href="#faq" class="drawer-link"><i class="fas fa-circle-question" style="color:var(--dim);width:16px;text-align:center;"></i> FAQ</a>
   <div class="drawer-divider"></div>
   <a href="#pricing" class="drawer-link mobile-cta"><i class="fas fa-bolt"></i> Get Instant Access</a>
@@ -2017,6 +2537,142 @@ footer {
   </div>
 </section>
 
+
+
+<!-- ══════════════════════ PREMIUM TRADING ROOM ══════════════════════ -->
+<section id="trading-room" class="trading-room-section">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="room-header-row reveal">
+      <div class="section-eyebrow">Premium Members Only</div>
+      <h2 class="section-title">The Premium <span style="background:linear-gradient(135deg,var(--accent),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Trading Room</span></h2>
+      <p class="section-body" style="margin:0 auto;margin-top:12px;">Watch elite traders execute live positions. Follow their strategies, learn from every move, and replicate results automatically.</p>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="room-stats-bar reveal">
+      <div class="room-stat-item">
+        <div class="room-stat-icon"><i class="fas fa-users"></i></div>
+        <div>
+          <span class="room-stat-num" id="rs-active">142</span>
+          <span class="room-stat-label">Traders Active</span>
+        </div>
+      </div>
+      <div class="room-stat-item">
+        <div class="room-stat-icon teal"><i class="fas fa-trophy"></i></div>
+        <div>
+          <span class="room-stat-num">+78%</span>
+          <span class="room-stat-label">Top Gain Today</span>
+        </div>
+      </div>
+      <div class="room-stat-item">
+        <div class="room-stat-icon violet"><i class="fas fa-signal"></i></div>
+        <div>
+          <span class="room-stat-num">1,284</span>
+          <span class="room-stat-label">Signals This Week</span>
+        </div>
+      </div>
+      <div class="room-stat-item">
+        <div class="room-stat-icon gold"><i class="fas fa-copy"></i></div>
+        <div>
+          <span class="room-stat-num" id="rs-copiers">3,820</span>
+          <span class="room-stat-label">Active Copiers</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Feed + Quick Stats -->
+    <div class="room-main-grid reveal">
+
+      <!-- Live Feed Panel -->
+      <div class="room-panel">
+        <div class="room-panel-header">
+          <div class="live-dot"></div>
+          <span class="room-panel-title">Live Activity Feed</span>
+          <span class="room-panel-count" id="room-count">0 traders active</span>
+        </div>
+        <div class="room-feed" id="room-feed"></div>
+      </div>
+
+      <!-- Quick Stat Cards -->
+      <div class="room-quick-stats">
+        <div class="room-quick-card">
+          <div class="room-quick-icon teal"><i class="fas fa-trophy"></i></div>
+          <h4>Top Gains Today</h4>
+          <p>Leaders hitting up to <strong style="color:var(--teal)">+78%</strong> intraday on live positions.</p>
+        </div>
+        <div class="room-quick-card">
+          <div class="room-quick-icon"><i class="fas fa-fire"></i></div>
+          <h4>Hot Strategies</h4>
+          <p>BTC scalping and gold swing trades trending right now.</p>
+        </div>
+        <div class="room-quick-card">
+          <div class="room-quick-icon violet"><i class="fas fa-signal"></i></div>
+          <h4>Signals Sent</h4>
+          <p><strong style="color:var(--violet)">1,284</strong> live signals delivered to members this week.</p>
+        </div>
+        <div class="room-quick-card">
+          <div class="room-quick-icon gold"><i class="fas fa-users-line"></i></div>
+          <h4>Active Copiers</h4>
+          <p><strong style="color:var(--gold)">3,820</strong> members copying elite strategies right now.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Elite Investors Header -->
+    <div class="elite-header-row reveal">
+      <div class="section-eyebrow" style="justify-content:center;">Copy Trading</div>
+      <h2 class="section-title">Trade With <span style="background:linear-gradient(135deg,var(--accent),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Elite Investors</span></h2>
+      <p class="section-body" style="margin:0 auto;margin-top:12px;">Select from 1,000+ verified professional traders. Auto-copy their portfolios and share in the profits.</p>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-bar reveal">
+      <button class="filter-btn active" onclick="filterElites(this,'all')">All Traders</button>
+      <button class="filter-btn" onclick="filterElites(this,'low')">Low Risk</button>
+      <button class="filter-btn" onclick="filterElites(this,'med')">Medium Risk</button>
+      <button class="filter-btn" onclick="filterElites(this,'high')">High Risk</button>
+    </div>
+
+    <!-- Elite Grid -->
+    <div class="elite-grid reveal" id="elite-grid"></div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════ HOW IT WORKS ══════════════════════ -->
+<section id="how" class="how-section">
+  <div class="container">
+    <div class="how-header reveal">
+      <div class="section-eyebrow">Getting Started</div>
+      <h2 class="section-title">Up and trading in<br>under 10 minutes.</h2>
+    </div>
+    <div class="how-steps">
+      <div class="how-step reveal">
+        <div class="how-step-num">01</div>
+        <h3>Sign Up</h3>
+        <p>Choose your plan and complete the secure checkout in under 2 minutes.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-1">
+        <div class="how-step-num">02</div>
+        <h3>Access Discord</h3>
+        <p>Get your instant Discord invite and onboarding guide to get oriented fast.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-2">
+        <div class="how-step-num">03</div>
+        <h3>Receive Signals</h3>
+        <p>Daily signals, market analysis, and AI strategies delivered directly to you.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-3">
+        <div class="how-step-num">04</div>
+        <h3>Execute & Grow</h3>
+        <p>Trade with confidence, track your progress, and scale your account steadily.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ══════════════════════ WHY ALPHA ══════════════════════ -->
 <section id="why" class="why-section">
   <div class="container">
@@ -2074,146 +2730,8 @@ footer {
   </div>
 </section>
 
-<!-- ══════════════════════ REVIEWS ══════════════════════ -->
-<section id="reviews" class="reviews-section">
-  <div class="container">
 
-    <div class="reviews-header reveal">
-      <div class="section-eyebrow">Member Reviews</div>
-      <h2 class="section-title">Real traders.<br>Real results.</h2>
-      <p class="section-body" style="margin: 0 auto; margin-top: 12px;">Members across all experience levels are hitting consistent profits. Here's proof from the community.</p>
-    </div>
 
-    <!-- ══ Screenshot masonry — replace placeholder divs with <img> tags when ready ══ -->
-    <div class="screenshots-grid">
-
-      <div class="screenshot-card reveal">
-       
-        <div class="screenshot-placeholder">
-          <!-- <i class="fas fa-image"></i> -->
-          <img src="assets/testimonial-1.jpg" alt="Member result">
-        </div>
-      </div>
-
-      <div class="screenshot-card reveal reveal-delay-1">
-        
-        <div class="screenshot-placeholder">
-          <!-- <i class="fas fa-image"></i> -->
-          <img src="assets/testimonial-2.jpg" alt="Member result">
-        </div>
-      </div>
-
-      <div class="screenshot-card reveal reveal-delay-2">
-        <div class="screenshot-placeholder">
-          <!-- <i class="fas fa-image"></i> -->
-            <img src="assets/testimonial-3.jpg" alt="Member result">
-        </div>
-      </div>
-
-    </div>
-    <!-- To add more screenshots, just copy a .screenshot-card block above and add your image -->
-
-    <!-- ══ Divider ══ -->
-    <div class="reviews-divider reveal">
-      <div class="reviews-divider-line"></div>
-      <div class="reviews-divider-label">What members say</div>
-      <div class="reviews-divider-line"></div>
-    </div>
-
-    <!-- ══ Text testimonial cards ══ -->
-    <div class="testimonials-row">
-
-      <div class="testi-card reveal">
-        <span class="testi-badge vip">VIP</span>
-        <div class="testi-quote">"</div>
-        <div class="testi-stars">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-        </div>
-        <p class="testi-text">"Made my first consistent profits within weeks of joining. The signals are clear and the explanations actually teach you something real."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">JM</div>
-          <div>
-            <div class="testi-name">James M.</div>
-            <div class="testi-handle">@jmtrades · VIP Member</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card reveal reveal-delay-1">
-        <div class="testi-quote">"</div>
-        <div class="testi-stars">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-        </div>
-        <p class="testi-text">"Signals are accurate and super easy to follow. I was skeptical at first but the team is legitimate and actually cares about your growth."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">SR</div>
-          <div>
-            <div class="testi-name">Sarah R.</div>
-            <div class="testi-handle">@sarahrtrades · Standard Member</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card reveal reveal-delay-2">
-        <span class="testi-badge life">Lifetime</span>
-        <div class="testi-quote">"</div>
-        <div class="testi-stars">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-        </div>
-        <p class="testi-text">"Best trading community I've ever joined. The AI strategies are next level and everyone here actually trades — no hype, just results."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">DK</div>
-          <div>
-            <div class="testi-name">David K.</div>
-            <div class="testi-handle">@dktrades · Lifetime Member</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ══ Trust strip ══ -->
-    <div class="reviews-trust reveal">
-      <div class="trust-item"><i class="fas fa-users"></i><span><strong>3,000+</strong> Active Members</span></div>
-      <div class="trust-item"><i class="fas fa-star"></i><span><strong>4.9 / 5</strong> Average Rating</span></div>
-      <div class="trust-item"><i class="fas fa-chart-line"></i><span><strong>85%</strong> Signal Accuracy</span></div>
-      <div class="trust-item"><i class="fas fa-shield-halved"></i><span><strong>Verified</strong> Real Members</span></div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ══════════════════════ HOW IT WORKS ══════════════════════ -->
-<section id="how" class="how-section">
-  <div class="container">
-    <div class="how-header reveal">
-      <div class="section-eyebrow">Getting Started</div>
-      <h2 class="section-title">Up and trading in<br>under 10 minutes.</h2>
-    </div>
-    <div class="how-steps">
-      <div class="how-step reveal">
-        <div class="how-step-num">01</div>
-        <h3>Sign Up</h3>
-        <p>Choose your plan and complete the secure checkout in under 2 minutes.</p>
-      </div>
-      <div class="how-step reveal reveal-delay-1">
-        <div class="how-step-num">02</div>
-        <h3>Access Discord</h3>
-        <p>Get your instant Discord invite and onboarding guide to get oriented fast.</p>
-      </div>
-      <div class="how-step reveal reveal-delay-2">
-        <div class="how-step-num">03</div>
-        <h3>Receive Signals</h3>
-        <p>Daily signals, market analysis, and AI strategies delivered directly to you.</p>
-      </div>
-      <div class="how-step reveal reveal-delay-3">
-        <div class="how-step-num">04</div>
-        <h3>Execute & Grow</h3>
-        <p>Trade with confidence, track your progress, and scale your account steadily.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ══════════════════════ PRICING ══════════════════════ -->
 <section id="pricing" class="pricing-section">
@@ -2315,6 +2833,210 @@ footer {
         <div class="cta-pill"><i class="fas fa-check-circle"></i> 3,000+ active traders</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ REVIEWS ══════════════════════ -->
+<section id="reviews" class="reviews-section">
+  <div class="container">
+
+    <div class="reviews-header reveal">
+      <div class="section-eyebrow">Member Reviews</div>
+      <h2 class="section-title">Real traders.<br>Real results.</h2>
+      <p class="section-body" style="margin: 0 auto; margin-top: 12px;">Members across all experience levels are hitting consistent profits. Here's proof from the community.</p>
+    </div>
+
+    <!-- ══ Screenshot masonry — replace placeholder divs with <img> tags when ready ══ -->
+    <div class="screenshots-grid">
+
+      <div class="screenshot-card reveal">
+       
+        <div class="screenshot-placeholder">
+          <!-- <i class="fas fa-image"></i> -->
+          <img src="assets/testimonial-1.jpg" alt="Member result">
+        </div>
+      </div>
+
+      <div class="screenshot-card reveal reveal-delay-1">
+        
+        <div class="screenshot-placeholder">
+          <!-- <i class="fas fa-image"></i> -->
+          <img src="assets/testimonial-2.jpg" alt="Member result">
+        </div>
+      </div>
+
+      <div class="screenshot-card reveal reveal-delay-2">
+        <div class="screenshot-placeholder">
+          <!-- <i class="fas fa-image"></i> -->
+            <img src="assets/testimonial-3.jpg" alt="Member result">
+        </div>
+      </div>
+
+    </div>
+    <!-- To add more screenshots, just copy a .screenshot-card block above and add your image -->
+
+    <!-- ══ Divider ══ -->
+    <div class="reviews-divider reveal">
+      <div class="reviews-divider-line"></div>
+      <div class="reviews-divider-label">What members say</div>
+      <div class="reviews-divider-line"></div>
+    </div>
+
+    <!-- ══ Testimonials infinite marquee ══ -->
+    <div class="testi-carousel reveal">
+      <div class="testi-track" id="testiTrack">
+
+        <!-- SET 1 — original 9 cards -->
+        <div class="testi-card">
+          <span class="testi-badge vip">VIP</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Made my first consistent profits within weeks of joining. The signals are clear and the explanations actually teach you something real."</p>
+          <div class="testi-author"><div class="testi-avatar">JM</div><div><div class="testi-name">James M.</div><div class="testi-handle">@jmtrades · VIP Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Signals are accurate and super easy to follow. I was skeptical at first but the team is legitimate and actually cares about your growth."</p>
+          <div class="testi-author"><div class="testi-avatar">SR</div><div><div class="testi-name">Sarah R.</div><div class="testi-handle">@sarahrtrades · Standard Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge life">Lifetime</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Best trading community I've ever joined. The AI strategies are next level and everyone here actually trades — no hype, just results."</p>
+          <div class="testi-author"><div class="testi-avatar">DK</div><div><div class="testi-name">David K.</div><div class="testi-handle">@dktrades · Lifetime Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge vip">VIP</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"I went from losing trades every week to hitting targets consistently. The morning briefings alone are worth the membership price — absolute game changer."</p>
+          <div class="testi-author"><div class="testi-avatar">TW</div><div><div class="testi-name">Tyler W.</div><div class="testi-handle">@tylerwtrader · VIP Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Copy trading feature is brilliant. I follow two of the top traders and my portfolio has grown 34% in 3 months without staring at charts all day."</p>
+          <div class="testi-author"><div class="testi-avatar">AN</div><div><div class="testi-name">Anika N.</div><div class="testi-handle">@anika.trades · Standard Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge life">Lifetime</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"The options flow alerts in VIP are something else. I've been trading 6 years and this is the first signal service that actually delivers what it promises."</p>
+          <div class="testi-author"><div class="testi-avatar">MC</div><div><div class="testi-name">Marcus C.</div><div class="testi-handle">@marcus_cfx · Lifetime Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Joined as a total beginner and the community made the learning curve so much easier. The weekly Q&As are priceless — ask anything and get real answers."</p>
+          <div class="testi-author"><div class="testi-avatar">LE</div><div><div class="testi-name">Lena E.</div><div class="testi-handle">@lena_investing · Standard Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge vip">VIP</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"What separates Alpha Traders from every other group is transparency. They show losses too. That honesty built my trust immediately and kept me long-term."</p>
+          <div class="testi-author"><div class="testi-avatar">RO</div><div><div class="testi-name">Raj O.</div><div class="testi-handle">@rajotrades · VIP Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge life">Lifetime</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Got lifetime access and haven't looked back. The AI strategy updates keep things fresh and the team genuinely listens to members. Best investment I've made."</p>
+          <div class="testi-author"><div class="testi-avatar">ZB</div><div><div class="testi-name">Zoe B.</div><div class="testi-handle">@zoebfx · Lifetime Member</div></div></div>
+        </div>
+
+        <!-- SET 2 — exact duplicate for seamless infinite loop -->
+        <div class="testi-card">
+          <span class="testi-badge vip">VIP</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Made my first consistent profits within weeks of joining. The signals are clear and the explanations actually teach you something real."</p>
+          <div class="testi-author"><div class="testi-avatar">JM</div><div><div class="testi-name">James M.</div><div class="testi-handle">@jmtrades · VIP Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Signals are accurate and super easy to follow. I was skeptical at first but the team is legitimate and actually cares about your growth."</p>
+          <div class="testi-author"><div class="testi-avatar">SR</div><div><div class="testi-name">Sarah R.</div><div class="testi-handle">@sarahrtrades · Standard Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge life">Lifetime</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Best trading community I've ever joined. The AI strategies are next level and everyone here actually trades — no hype, just results."</p>
+          <div class="testi-author"><div class="testi-avatar">DK</div><div><div class="testi-name">David K.</div><div class="testi-handle">@dktrades · Lifetime Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge vip">VIP</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"I went from losing trades every week to hitting targets consistently. The morning briefings alone are worth the membership price — absolute game changer."</p>
+          <div class="testi-author"><div class="testi-avatar">TW</div><div><div class="testi-name">Tyler W.</div><div class="testi-handle">@tylerwtrader · VIP Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Copy trading feature is brilliant. I follow two of the top traders and my portfolio has grown 34% in 3 months without staring at charts all day."</p>
+          <div class="testi-author"><div class="testi-avatar">AN</div><div><div class="testi-name">Anika N.</div><div class="testi-handle">@anika.trades · Standard Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge life">Lifetime</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"The options flow alerts in VIP are something else. I've been trading 6 years and this is the first signal service that actually delivers what it promises."</p>
+          <div class="testi-author"><div class="testi-avatar">MC</div><div><div class="testi-name">Marcus C.</div><div class="testi-handle">@marcus_cfx · Lifetime Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Joined as a total beginner and the community made the learning curve so much easier. The weekly Q&As are priceless — ask anything and get real answers."</p>
+          <div class="testi-author"><div class="testi-avatar">LE</div><div><div class="testi-name">Lena E.</div><div class="testi-handle">@lena_investing · Standard Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge vip">VIP</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"What separates Alpha Traders from every other group is transparency. They show losses too. That honesty built my trust immediately and kept me long-term."</p>
+          <div class="testi-author"><div class="testi-avatar">RO</div><div><div class="testi-name">Raj O.</div><div class="testi-handle">@rajotrades · VIP Member</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-badge life">Lifetime</span>
+          <div class="testi-quote">"</div>
+          <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testi-text">"Got lifetime access and haven't looked back. The AI strategy updates keep things fresh and the team genuinely listens to members. Best investment I've made."</p>
+          <div class="testi-author"><div class="testi-avatar">ZB</div><div><div class="testi-name">Zoe B.</div><div class="testi-handle">@zoebfx · Lifetime Member</div></div></div>
+        </div>
+
+      </div><!-- /testi-track -->
+    </div><!-- /testi-carousel -->
+
+    <!-- ══ Trust strip ══ -->
+    <div class="reviews-trust reveal">
+      <div class="trust-item"><i class="fas fa-users"></i><span><strong>3,000+</strong> Active Members</span></div>
+      <div class="trust-item"><i class="fas fa-star"></i><span><strong>4.9 / 5</strong> Average Rating</span></div>
+      <div class="trust-item"><i class="fas fa-chart-line"></i><span><strong>85%</strong> Signal Accuracy</span></div>
+      <div class="trust-item"><i class="fas fa-shield-halved"></i><span><strong>Verified</strong> Real Members</span></div>
+    </div>
+
   </div>
 </section>
 
@@ -2617,6 +3339,121 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 window.addEventListener('scroll', () => {
   document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 40);
 });
+
+/* ─── Premium Trading Room ─── */
+(function() {
+  const traders = [
+    { name: 'Alex K.',    photo: 'https://randomuser.me/api/portraits/men/32.jpg' },
+    { name: 'Priya S.',   photo: 'https://randomuser.me/api/portraits/women/44.jpg' },
+    { name: 'DT Trading', photo: 'https://randomuser.me/api/portraits/men/15.jpg' },
+    { name: 'Forex Aut.', photo: 'https://randomuser.me/api/portraits/men/60.jpg' },
+    { name: 'Marco L.',   photo: 'https://randomuser.me/api/portraits/men/71.jpg' },
+    { name: 'Yuna C.',    photo: 'https://randomuser.me/api/portraits/women/65.jpg' },
+    { name: 'EA Trade',   photo: 'https://randomuser.me/api/portraits/men/46.jpg' },
+    { name: 'Ben W.',     photo: 'https://randomuser.me/api/portraits/men/25.jpg' },
+    { name: 'Sofia A.',   photo: 'https://randomuser.me/api/portraits/women/29.jpg' },
+    { name: 'Raj P.',     photo: 'https://randomuser.me/api/portraits/men/78.jpg' },
+    { name: 'Mei L.',     photo: 'https://randomuser.me/api/portraits/women/56.jpg' },
+    { name: 'Carlos F.',  photo: 'https://randomuser.me/api/portraits/men/53.jpg' },
+    { name: 'Aisha M.',   photo: 'https://randomuser.me/api/portraits/women/74.jpg' },
+    { name: 'Oliver R.',  photo: 'https://randomuser.me/api/portraits/men/88.jpg' },
+  ];
+
+  const actions = [
+    ['opened a BUY on', 'BTC/USD'],
+    ['opened a SELL on', 'EUR/USD'],
+    ['copied a trade from', 'DT Trading'],
+    ['closed a position on', 'Gold'],
+    ['entered a BUY on', 'S&P 500'],
+    ['opened a SELL on', 'USD/JPY'],
+    ['opened a BUY on', 'NVDA'],
+    ['took profit on', 'GBP/USD'],
+    ['opened a SELL on', 'Oil WTI'],
+    ['copied a strategy from', 'EA Trade'],
+    ['opened a BUY on', 'TSLA'],
+  ];
+
+  const feed   = document.getElementById('room-feed');
+  const count  = document.getElementById('room-count');
+  const rsActive = document.getElementById('rs-active');
+
+  function rndGain() {
+    const v = (Math.random() * 6 + 0.4).toFixed(2);
+    return Math.random() > 0.28 ? '+' + v + '%' : '-' + (Math.random() * 2 + 0.1).toFixed(2) + '%';
+  }
+
+  function addRow() {
+    if (!feed) return;
+    const t = traders[Math.floor(Math.random() * traders.length)];
+    const a = actions[Math.floor(Math.random() * actions.length)];
+    const g = rndGain();
+    const row = document.createElement('div');
+    row.className = 'feed-row';
+    row.innerHTML = `
+      <div class="feed-avatar"><img src="${t.photo}" alt="${t.name}" loading="lazy"></div>
+      <div>
+        <div class="feed-name">${t.name}</div>
+        <div class="feed-action">${a[0]} <strong>${a[1]}</strong></div>
+      </div>
+      <div class="feed-gain ${g.startsWith('+') ? 'pos' : 'neg'}">${g}</div>`;
+    feed.insertBefore(row, feed.firstChild);
+    if (feed.children.length > 16) feed.removeChild(feed.lastChild);
+    const n = Math.floor(Math.random() * 80 + 120);
+    if (count)    count.textContent    = n + ' traders active';
+    if (rsActive) rsActive.textContent = n;
+  }
+
+  for (let i = 0; i < 10; i++) addRow();
+  setInterval(addRow, 2200);
+
+  // Copiers live counter
+  const rsCopiers = document.getElementById('rs-copiers');
+  let copiersVal = 3820;
+  setInterval(() => {
+    copiersVal += Math.round(Math.random() * 5 - 1);
+    if (rsCopiers) rsCopiers.textContent = copiersVal.toLocaleString();
+  }, 3000);
+
+  // Elite investors
+  const elites = [
+    { photo: 'https://randomuser.me/api/portraits/men/41.jpg',  name: 'DT Trading',   spec: 'Forex & BTC Scalping',      gain: '+75%', alltime: '+165%', followers: 22, risk: 'med' },
+    { photo: 'https://randomuser.me/api/portraits/men/55.jpg',  name: 'EA Trade VIP', spec: 'Gold Swing & Indices',       gain: '+41%', alltime: '+108%', followers: 13, risk: 'med' },
+    { photo: 'https://randomuser.me/api/portraits/men/67.jpg',  name: 'Forex Auto',   spec: 'Automated Forex',            gain: '+32%', alltime: '+58%',  followers: 23, risk: 'med' },
+    { photo: 'https://randomuser.me/api/portraits/men/22.jpg',  name: 'MarcoFX Pro',  spec: 'EUR/USD Day Trader',         gain: '+58%', alltime: '+132%', followers: 41, risk: 'low' },
+    { photo: 'https://randomuser.me/api/portraits/men/38.jpg',  name: 'CryptoRocket', spec: 'BTC & ETH Momentum',         gain: '+89%', alltime: '+210%', followers: 67, risk: 'high' },
+    { photo: 'https://randomuser.me/api/portraits/women/48.jpg',name: 'GoldSentinel', spec: 'Commodities Specialist',     gain: '+27%', alltime: '+74%',  followers: 18, risk: 'low' },
+  ];
+
+  const riskLabel = { med: 'Medium Risk', low: 'Low Risk', high: 'High Risk' };
+  const grid = document.getElementById('elite-grid');
+
+  window.filterElites = function(btn, risk) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderElites(risk);
+  };
+
+  function renderElites(filter) {
+    if (!grid) return;
+    const filtered = filter === 'all' ? elites : elites.filter(e => e.risk === filter);
+    grid.innerHTML = filtered.map(e => `
+      <div class="elite-card">
+        <div class="elite-avatar"><img src="${e.photo}" alt="${e.name}" loading="lazy"></div>
+        <div class="elite-name">${e.name}</div>
+        <div class="elite-spec">${e.spec}</div>
+        <div class="elite-gain">${e.gain}</div>
+        <div class="elite-gain-label">Monthly Gain</div>
+        <div class="elite-meta">
+          <i class="fas fa-users" style="font-size:.75rem;margin-right:4px;"></i>${e.followers} Followers &nbsp;·&nbsp;
+          All-time: <span>${e.alltime}</span>
+        </div>
+        <div class="risk-pill ${e.risk}">${riskLabel[e.risk]}</div>
+        <button class="btn-copy-trader">Copy Trader</button>
+      </div>`).join('');
+  }
+
+  renderElites('all');
+})();
 
 /* ─── TradingView Ticker Tape ─── */
 (function() {
