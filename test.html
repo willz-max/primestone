@@ -739,36 +739,90 @@ section { padding: 100px 0; }
 .why-float-badge .txt { font-size: 0.78rem; color: var(--dim); line-height: 1.4; }
 
 /* ═══════════════════════════════════════════════════
-   RESULTS / TESTIMONIALS
+   REVIEWS SECTION
 ═══════════════════════════════════════════════════ */
-.results-section { background: var(--bg); }
-.results-header { text-align: center; margin-bottom: 56px; }
-.results-header .section-eyebrow { justify-content: center; }
+.reviews-section { background: var(--bg); }
+.reviews-header { text-align: center; margin-bottom: 56px; }
+.reviews-header .section-eyebrow { justify-content: center; }
 
-.results-placeholder {
-  background: var(--surface);
-  border: 2px dashed var(--border3);
+/* ── Screenshot masonry grid ── */
+.screenshots-grid {
+  columns: 3;
+  column-gap: 18px;
+  margin-bottom: 56px;
+}
+@media (max-width: 860px) { .screenshots-grid { columns: 2; } }
+@media (max-width: 520px) { .screenshots-grid { columns: 1; } }
+
+/* Each screenshot card wrapper */
+.screenshot-card {
+  break-inside: avoid;
+  margin-bottom: 18px;
   border-radius: var(--radius-lg);
-  min-height: 380px;
+  overflow: hidden;
+  border: 1px solid var(--border2);
+  background: var(--surface);
+  position: relative;
+  cursor: pointer;
+  transition: transform var(--trans), box-shadow var(--trans), border-color var(--trans);
+}
+.screenshot-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  border-color: rgba(77,166,255,0.3);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.45), 0 0 0 1px rgba(77,166,255,0.1);
+}
+.screenshot-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Image placeholder (shown when no src / image not added yet) */
+.screenshot-placeholder {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: linear-gradient(160deg, var(--surface3) 0%, var(--surface2) 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: 10px;
   color: var(--dimmer);
-  text-align: center;
-  padding: 40px;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+.screenshot-placeholder i { font-size: 2rem; color: var(--accent); opacity: 0.3; }
+
+/* Hover overlay removed */
+
+/* ── Divider ── */
+.reviews-divider {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 48px;
+}
+.reviews-divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border3), transparent);
+}
+.reviews-divider-label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dimmer);
+  white-space: nowrap;
 }
 
-.results-placeholder i { font-size: 3rem; opacity: 0.5; color: var(--accent); }
-.results-placeholder h3 { font-family: var(--font-display); font-size: 1.4rem; color: var(--dimmer); }
-.results-placeholder p { font-size: 0.85rem; max-width: 360px; }
-
+/* ── Testimonial text cards ── */
 .testimonials-row {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 18px;
-  margin-top: 40px;
+  margin-top: 0;
 }
 
 .testi-card {
@@ -776,15 +830,28 @@ section { padding: 100px 0; }
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 28px;
-  transition: transform var(--trans), border-color var(--trans);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--trans), border-color var(--trans), box-shadow var(--trans);
 }
-.testi-card:hover { transform: translateY(-4px); border-color: rgba(77,166,255,0.18); }
+.testi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 24px; right: 24px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(77,166,255,0.35), transparent);
+  opacity: 0;
+  transition: opacity var(--trans);
+}
+.testi-card:hover { transform: translateY(-4px); border-color: rgba(77,166,255,0.2); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+.testi-card:hover::before { opacity: 1; }
 
+.testi-quote { font-size: 2.2rem; color: var(--accent); opacity: 0.18; font-family: Georgia,serif; line-height: 1; margin-bottom: 8px; }
 .testi-stars { color: var(--gold); font-size: 0.8rem; margin-bottom: 14px; display: flex; gap: 3px; }
 .testi-text  { font-size: 0.89rem; color: var(--dim); line-height: 1.72; margin-bottom: 20px; font-style: italic; }
 .testi-author { display: flex; align-items: center; gap: 10px; }
 .testi-avatar {
-  width: 36px; height: 36px;
+  width: 38px; height: 38px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--accent-dim), var(--violet-dim));
   border: 1px solid var(--border2);
@@ -793,9 +860,37 @@ section { padding: 100px 0; }
   font-size: 0.78rem;
   font-weight: 700;
   color: var(--accent);
+  flex-shrink: 0;
 }
-.testi-name { font-size: 0.85rem; font-weight: 600; }
+.testi-name   { font-size: 0.85rem; font-weight: 600; }
 .testi-handle { font-size: 0.75rem; color: var(--dim); }
+.testi-badge {
+  position: absolute;
+  top: 18px; right: 18px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.testi-badge.vip  { background: var(--gold-dim); border: 1px solid rgba(251,191,36,0.3); color: var(--gold); }
+.testi-badge.life { background: var(--violet-dim); border: 1px solid rgba(167,139,250,0.3); color: var(--violet); }
+
+/* ── Trust strip ── */
+.reviews-trust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  flex-wrap: wrap;
+  margin-top: 52px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+.trust-item { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; color: var(--dim); }
+.trust-item i { color: var(--accent); font-size: 1rem; }
+.trust-item strong { color: var(--white); font-weight: 600; }
 
 /* ═══════════════════════════════════════════════════
    HOW IT WORKS
@@ -883,6 +978,7 @@ section { padding: 100px 0; }
   padding: 36px 32px;
   position: relative;
   transition: transform var(--trans), box-shadow var(--trans);
+  text-align: center;
 }
 
 .plan-card:hover {
@@ -913,7 +1009,8 @@ section { padding: 100px 0; }
   border-radius: 50%;
   display: grid;
   place-items: center;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  color: #0d1117;
   box-shadow: 0 8px 24px rgba(251,191,36,0.4);
   animation: float 3s ease-in-out infinite;
   z-index: 2;
@@ -975,13 +1072,15 @@ section { padding: 100px 0; }
   margin-bottom: 24px;
 }
 
-.plan-features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+.plan-features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; text-align: left; }
 
 .plan-feature {
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: 0.865rem;
+  text-align: left;
+  justify-content: flex-start;
 }
 
 .plan-feature .icon {
@@ -1285,29 +1384,373 @@ footer {
 .reveal-delay-5 { transition-delay: 0.5s; }
 
 /* ═══════════════════════════════════════════════════
-   RESPONSIVE
+   TRADING PRODUCTS SECTION
 ═══════════════════════════════════════════════════ */
+.products-section {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+
+.products-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.products-header .section-eyebrow { justify-content: center; }
+.products-header .section-body { margin: 0 auto; margin-top: 12px; }
+
+.products-header .section-title span {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--gold), #d97706);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.product-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform var(--trans), box-shadow var(--trans), border-color var(--trans);
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(77,166,255,0.25);
+  box-shadow: 0 24px 56px rgba(0,0,0,0.4), 0 0 0 1px rgba(77,166,255,0.08);
+}
+
+.product-card-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+  background: var(--surface2);
+}
+
+.product-card-img-placeholder {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: linear-gradient(160deg, var(--surface3) 0%, var(--surface2) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dimmer);
+  font-size: 2.5rem;
+}
+
+.product-card-body {
+  padding: 24px 24px 28px;
+}
+
+.product-card-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--white);
+  letter-spacing: -0.01em;
+}
+
+.product-card-desc {
+  font-size: 0.86rem;
+  color: var(--dim);
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.product-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.product-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid var(--border3);
+  border-radius: var(--radius-pill);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+  background: var(--surface2);
+}
+
+.product-explore {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  transition: gap var(--trans), color var(--trans);
+}
+
+.product-card:hover .product-explore {
+  gap: 10px;
+  color: #fcd34d;
+}
+
+/* ═══════════════════════════════════════════════════
+   REGULATORY / TRUST SECTION
+═══════════════════════════════════════════════════ */
+.regulatory-section {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.regulatory-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.regulatory-header .section-eyebrow { justify-content: center; }
+.regulatory-header .section-body { margin: 0 auto; margin-top: 12px; }
+
+.regulatory-header .section-title span {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--gold), #d97706);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.regulatory-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto 16px;
+}
+
+.regulatory-card {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: border-color var(--trans), transform var(--trans), box-shadow var(--trans);
+}
+
+.regulatory-card:hover {
+  border-color: rgba(251,191,36,0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+}
+
+.regulatory-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.regulatory-logo img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.regulatory-logo i {
+  font-size: 1.6rem;
+  color: var(--gold);
+}
+
+.regulatory-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 3px;
+}
+
+.regulatory-sub {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* Center card for 5th item */
+.regulatory-center {
+  max-width: 900px;
+  margin: 0 auto 48px;
+  display: flex;
+  justify-content: center;
+}
+
+.regulatory-center .regulatory-card {
+  width: 100%;
+  max-width: 440px;
+}
+
+/* Trust badges row */
+.regulatory-badges {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+
+.reg-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 14px 22px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--white2);
+  transition: border-color var(--trans), transform var(--trans);
+}
+
+.reg-badge:hover {
+  border-color: rgba(251,191,36,0.3);
+  transform: translateY(-2px);
+}
+
+.reg-badge i {
+  color: var(--gold);
+  font-size: 1rem;
+}
+
+/* Responsive */
 @media (max-width: 860px) {
-  .features-grid { grid-template-columns: 1fr 1fr; }
-  .why-inner { grid-template-columns: 1fr; gap: 40px; }
-  .why-image { display: none; }
-  .how-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
-  .how-steps::before { display: none; }
-  .pricing-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
-  .plan-card.featured { transform: none; }
-  .testimonials-row { grid-template-columns: 1fr; }
-  .faq-wrap { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .products-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 540px) {
+  .products-grid { grid-template-columns: 1fr; }
+  .regulatory-grid { grid-template-columns: 1fr; max-width: 100%; }
+  .regulatory-center { margin-bottom: 0; }
+  .regulatory-center .regulatory-card { max-width: 100%; }
+  .regulatory-badges { gap: 10px; }
+  .reg-badge { padding: 11px 16px; font-size: 0.8rem; }
+}
+
+
+@media (max-width: 860px) {
+  section { padding: 72px 0; }
+
+  /* Features */
+  .features-grid { grid-template-columns: 1fr 1fr; }
+  .features-header { text-align: center; }
+
+  /* Why section */
+  .why-inner { grid-template-columns: 1fr; gap: 40px; }
+  .why-image { display: none; }
+  .why-content { text-align: center; }
+  .why-content .section-eyebrow { justify-content: center; }
+  .why-content .section-body { margin: 0 auto; }
+  .why-point { text-align: left; }
+
+  /* How it works */
+  .how-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .how-steps::before { display: none; }
+
+  /* Pricing */
+  .pricing-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+  .plan-card.featured { transform: none; }
+
+  /* Reviews */
+  .screenshots-grid { columns: 2; }
+  .testimonials-row { grid-template-columns: 1fr 1fr; }
+  .reviews-trust { gap: 20px; justify-content: center; }
+
+  /* FAQ */
+  .faq-wrap { grid-template-columns: 1fr; }
+  .faq-header { max-width: 100%; text-align: center; }
+  .faq-header .section-eyebrow { justify-content: center; }
+
+  /* Disclaimer */
+  .disclaimer-inner { flex-direction: column; align-items: center; text-align: center; }
+  .disc-text { text-align: center; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-bottom { flex-direction: column; align-items: center; text-align: center; }
+  .footer-bottom p { text-align: center; }
+  .footer-badges { justify-content: center; }
+
+  /* CTA section */
+  .cta-pills { gap: 16px; }
+}
+
+@media (max-width: 540px) {
+  section { padding: 56px 0; }
+
+  /* Features */
   .features-grid { grid-template-columns: 1fr; }
+
+  /* How it works */
   .how-steps { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .hero-stats { gap: 28px; }
+
+  /* Reviews */
+  .screenshots-grid { columns: 1; }
+  .testimonials-row { grid-template-columns: 1fr; }
+  .reviews-trust { flex-direction: column; align-items: center; gap: 14px; }
+  .trust-item { justify-content: center; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr; text-align: center; }
+  .footer-col { text-align: center; }
+  .social-links { justify-content: center; }
+  .footer-tagline { max-width: 100%; }
+
+  /* Hero */
+  .hero-stats { gap: 28px; justify-content: center; }
   .hero-actions { flex-direction: column; align-items: center; }
-  .hero h1 { font-size: 2.6rem; }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-ghost { width: 100%; max-width: 320px; justify-content: center; }
+  .hero h1 { font-size: 2.4rem; }
+  .hero-sub { font-size: 0.97rem; }
+
+  /* Pricing */
+  .pricing-grid { max-width: 100%; }
+  .plan-card { padding: 28px 20px; }
+
+  /* CTA */
+  .cta-actions { flex-direction: column; align-items: center; }
+  .cta-actions .btn-primary,
+  .cta-actions .btn-ghost { width: 100%; max-width: 320px; justify-content: center; }
+  .cta-pills { flex-direction: column; align-items: center; gap: 10px; }
+
+  /* General centering for section headers */
+  .section-eyebrow { justify-content: center; }
+  .section-body { text-align: center; margin: 0 auto; }
+
+  /* Why points full width */
+  .why-point { flex-direction: row; }
+
+  /* FAQ bottom footer fixes */
+  .footer-bottom { gap: 16px; }
 }
 </style>
 </head>
@@ -1322,8 +1765,9 @@ footer {
 
   <ul class="nav-links">
     <li><a href="#features">Features</a></li>
+    <li><a href="#products">Products</a></li>
     <li><a href="#why">Why Us</a></li>
-    <li><a href="#results">Results</a></li>
+    <li><a href="#reviews">Reviews</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
@@ -1343,8 +1787,9 @@ footer {
     <button class="drawer-close" id="drawerClose" aria-label="Close menu"><i class="fas fa-times"></i></button>
   </div>
   <a href="#features" class="drawer-link"><i class="fas fa-bolt" style="color:var(--accent);width:16px;text-align:center;"></i> Features</a>
+  <a href="#products" class="drawer-link"><i class="fas fa-layer-group" style="color:var(--accent);width:16px;text-align:center;"></i> Products</a>
   <a href="#why" class="drawer-link"><i class="fas fa-shield-halved" style="color:var(--violet);width:16px;text-align:center;"></i> Why Us</a>
-  <a href="#results" class="drawer-link"><i class="fas fa-chart-line" style="color:var(--teal);width:16px;text-align:center;"></i> Results</a>
+  <a href="#reviews" class="drawer-link"><i class="fas fa-chart-line" style="color:var(--teal);width:16px;text-align:center;"></i> Reviews</a>
   <a href="#pricing" class="drawer-link"><i class="fas fa-tags" style="color:var(--gold);width:16px;text-align:center;"></i> Pricing</a>
   <a href="#faq" class="drawer-link"><i class="fas fa-circle-question" style="color:var(--dim);width:16px;text-align:center;"></i> FAQ</a>
   <div class="drawer-divider"></div>
@@ -1381,12 +1826,12 @@ footer {
       <a href="#pricing" class="btn-primary">
         <i class="fas fa-bolt"></i> Get Instant Access
       </a>
-      <a href="#results" class="btn-ghost">
-        <i class="fas fa-chart-line"></i> View Results
+      <a href="#reviews" class="btn-ghost">
+        <i class="fas fa-chart-line"></i> View Reviews
       </a>
     </div>
 
-    <div class="hero-stats">
+    <!-- <div class="hero-stats">
       <div class="hero-stat">
         <div class="num">3<span class="accent-num">,000+</span></div>
         <div class="label">Active Members</div>
@@ -1403,7 +1848,7 @@ footer {
         <div class="num">5<span class="accent-num">+</span></div>
         <div class="label">Years Experience</div>
       </div>
-    </div>
+    </div> -->
   </div>
 </section>
 
@@ -1430,7 +1875,7 @@ footer {
       </div>
 
       <div class="feat-card reveal reveal-delay-1">
-        <div class="feat-icon"><i class="fas fa-chart-candlestick"></i></div>
+        <div class="feat-icon"><i class="fas fa-chart-bar"></i></div>
         <div class="feat-title">Stock & Options Signals</div>
         <div class="feat-desc">Advanced setups from experienced traders across U.S. equities and options markets. Includes options flow alerts for VIP members.</div>
         <div class="feat-tag">Multi-Market →</div>
@@ -1463,6 +1908,112 @@ footer {
         <div class="feat-desc">Follow proven strategies in real time. See exactly how experienced traders size positions and manage risk — then execute with confidence.</div>
         <div class="feat-tag">Mirror Trades →</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ TRADING PRODUCTS ══════════════════════ -->
+<section id="products" class="products-section">
+  <div class="container">
+
+    <div class="products-header reveal">
+      <div class="section-eyebrow">Comprehensive Solutions</div>
+      <h2 class="section-title">Our <span>Trading Products</span></h2>
+      <p class="section-body">From copy trading to crypto derivatives — access every major market through a single, unified platform.</p>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- Copy Trading -->
+      <div class="product-card reveal">
+        <img src="assets/product-copy-trading.jpg" alt="Copy Trading" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="product-card-img-placeholder" style="display:none;"><i class="fas fa-copy"></i></div>
+        <div class="product-card-body">
+          <div class="product-card-title">Copy Trading</div>
+          <div class="product-card-desc">Automatically replicate the trades of top-performing investors in real-time. Ideal for beginners and passive investors.</div>
+          <div class="product-tags">
+            <span class="product-tag">Automated</span>
+            <span class="product-tag">Passive Income</span>
+          </div>
+          <span class="product-explore">Explore <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </div>
+
+      <!-- Cryptocurrency Trading -->
+      <div class="product-card reveal reveal-delay-1">
+        <img src="assets/product-crypto.jpg" alt="Cryptocurrency Trading" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="product-card-img-placeholder" style="display:none;"><i class="fab fa-bitcoin"></i></div>
+        <div class="product-card-body">
+          <div class="product-card-title">Cryptocurrency Trading</div>
+          <div class="product-card-desc">Trade 21 major crypto CFDs including Bitcoin, Ethereum, and Solana with leverage and real-time order books.</div>
+          <div class="product-tags">
+            <span class="product-tag">21 Assets</span>
+            <span class="product-tag">Leverage</span>
+          </div>
+          <span class="product-explore">Explore <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </div>
+
+      <!-- Exchange Traded Funds -->
+      <div class="product-card reveal reveal-delay-2">
+        <img src="assets/product-etf.jpg" alt="Exchange Traded Funds" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="product-card-img-placeholder" style="display:none;"><i class="fas fa-chart-pie"></i></div>
+        <div class="product-card-body">
+          <div class="product-card-title">Exchange Traded Funds</div>
+          <div class="product-card-desc">Diversify across sectors with ETF CFDs. Track global indices, sectors, and thematic strategies effortlessly.</div>
+          <div class="product-tags">
+            <span class="product-tag">Diversified</span>
+            <span class="product-tag">Low Risk</span>
+          </div>
+          <span class="product-explore">Explore <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </div>
+
+      <!-- Global Forex Trading -->
+      <div class="product-card reveal reveal-delay-1">
+        <img src="assets/product-forex.jpg" alt="Global Forex Trading" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="product-card-img-placeholder" style="display:none;"><i class="fas fa-globe"></i></div>
+        <div class="product-card-body">
+          <div class="product-card-title">Global Forex Trading</div>
+          <div class="product-card-desc">Trade 61 currency pairs with institutional-grade spreads and deep liquidity — available 24/5 across all sessions.</div>
+          <div class="product-tags">
+            <span class="product-tag">61 Pairs</span>
+            <span class="product-tag">0.0 Spreads</span>
+          </div>
+          <span class="product-explore">Explore <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </div>
+
+      <!-- Global Stock CFDs -->
+      <div class="product-card reveal reveal-delay-2">
+        <img src="assets/product-stocks.jpg" alt="Global Stock CFDs" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="product-card-img-placeholder" style="display:none;"><i class="fas fa-chart-line"></i></div>
+        <div class="product-card-body">
+          <div class="product-card-title">Global Stock CFDs</div>
+          <div class="product-card-desc">Access over 2,100 US, EU, and Asian equity CFDs without the need for exchange membership or brokerage accounts.</div>
+          <div class="product-tags">
+            <span class="product-tag">2100+ Stocks</span>
+            <span class="product-tag">No Commission</span>
+          </div>
+          <span class="product-explore">Explore <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </div>
+
+      <!-- Commodities CFDs -->
+      <div class="product-card reveal reveal-delay-3">
+        <img src="assets/product-commodities.jpg" alt="Commodities CFDs" class="product-card-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="product-card-img-placeholder" style="display:none;"><i class="fas fa-coins"></i></div>
+        <div class="product-card-body">
+          <div class="product-card-title">Commodities CFDs</div>
+          <div class="product-card-desc">Trade gold, oil, silver, and 24 other commodities using precision charting tools and macro-driven signals.</div>
+          <div class="product-tags">
+            <span class="product-tag">24 Assets</span>
+            <span class="product-tag">Gold & Oil</span>
+          </div>
+          <span class="product-explore">Explore <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1524,26 +2075,62 @@ footer {
   </div>
 </section>
 
-<!-- ══════════════════════ RESULTS ══════════════════════ -->
-<section id="results" class="results-section">
+<!-- ══════════════════════ REVIEWS ══════════════════════ -->
+<section id="reviews" class="reviews-section">
   <div class="container">
-    <div class="results-header reveal">
-      <div class="section-eyebrow">Track Record</div>
-      <h2 class="section-title">Proof is in<br>the results.</h2>
+
+    <div class="reviews-header reveal">
+      <div class="section-eyebrow">Member Reviews</div>
+      <h2 class="section-title">Real traders.<br>Real results.</h2>
+      <p class="section-body" style="margin: 0 auto; margin-top: 12px;">Members across all experience levels are hitting consistent profits. Here's proof from the community.</p>
     </div>
 
-    <div class="results-placeholder reveal">
-      <i class="fas fa-chart-bar"></i>
-      <h3>Screenshots Coming Soon</h3>
-      <p>Real trade results and verified P&L screenshots will be displayed here. Quality evidence only — no cherry-picked wins.</p>
+    <!-- ══ Screenshot masonry — replace placeholder divs with <img> tags when ready ══ -->
+    <div class="screenshots-grid">
+
+      <div class="screenshot-card reveal">
+       
+        <div class="screenshot-placeholder">
+          <!-- <i class="fas fa-image"></i> -->
+          <img src="assets/testimonial-1.jpg" alt="Member result">
+        </div>
+      </div>
+
+      <div class="screenshot-card reveal reveal-delay-1">
+        
+        <div class="screenshot-placeholder">
+          <!-- <i class="fas fa-image"></i> -->
+          <img src="assets/testimonial-2.jpg" alt="Member result">
+        </div>
+      </div>
+
+      <div class="screenshot-card reveal reveal-delay-2">
+        <div class="screenshot-placeholder">
+          <!-- <i class="fas fa-image"></i> -->
+            <img src="assets/testimonial-3.jpg" alt="Member result">
+        </div>
+      </div>
+
+    </div>
+    <!-- To add more screenshots, just copy a .screenshot-card block above and add your image -->
+
+    <!-- ══ Divider ══ -->
+    <div class="reviews-divider reveal">
+      <div class="reviews-divider-line"></div>
+      <div class="reviews-divider-label">What members say</div>
+      <div class="reviews-divider-line"></div>
     </div>
 
+    <!-- ══ Text testimonial cards ══ -->
     <div class="testimonials-row">
+
       <div class="testi-card reveal">
+        <span class="testi-badge vip">VIP</span>
+        <div class="testi-quote">"</div>
         <div class="testi-stars">
           <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
         </div>
-        <p class="testi-text">"Made my first consistent profits within weeks of joining. The signals are clear and the explanations actually teach you something."</p>
+        <p class="testi-text">"Made my first consistent profits within weeks of joining. The signals are clear and the explanations actually teach you something real."</p>
         <div class="testi-author">
           <div class="testi-avatar">JM</div>
           <div>
@@ -1552,11 +2139,13 @@ footer {
           </div>
         </div>
       </div>
+
       <div class="testi-card reveal reveal-delay-1">
+        <div class="testi-quote">"</div>
         <div class="testi-stars">
           <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
         </div>
-        <p class="testi-text">"The signals are accurate and super easy to follow. I was skeptical at first but the team is legitimate and actually cares about your growth."</p>
+        <p class="testi-text">"Signals are accurate and super easy to follow. I was skeptical at first but the team is legitimate and actually cares about your growth."</p>
         <div class="testi-author">
           <div class="testi-avatar">SR</div>
           <div>
@@ -1565,11 +2154,14 @@ footer {
           </div>
         </div>
       </div>
+
       <div class="testi-card reveal reveal-delay-2">
+        <span class="testi-badge life">Lifetime</span>
+        <div class="testi-quote">"</div>
         <div class="testi-stars">
           <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
         </div>
-        <p class="testi-text">"Best trading community I've joined by a long shot. The AI strategies are next level and the community is full of people who actually trade."</p>
+        <p class="testi-text">"Best trading community I've ever joined. The AI strategies are next level and everyone here actually trades — no hype, just results."</p>
         <div class="testi-author">
           <div class="testi-avatar">DK</div>
           <div>
@@ -1578,7 +2170,17 @@ footer {
           </div>
         </div>
       </div>
+
     </div>
+
+    <!-- ══ Trust strip ══ -->
+    <div class="reviews-trust reveal">
+      <div class="trust-item"><i class="fas fa-users"></i><span><strong>3,000+</strong> Active Members</span></div>
+      <div class="trust-item"><i class="fas fa-star"></i><span><strong>4.9 / 5</strong> Average Rating</span></div>
+      <div class="trust-item"><i class="fas fa-chart-line"></i><span><strong>85%</strong> Signal Accuracy</span></div>
+      <div class="trust-item"><i class="fas fa-shield-halved"></i><span><strong>Verified</strong> Real Members</span></div>
+    </div>
+
   </div>
 </section>
 
@@ -1627,7 +2229,7 @@ footer {
       <!-- Standard -->
       <div class="plan-card reveal">
         <div class="plan-name">Standard</div>
-        <div class="plan-price"><sup>$</sup>49</div>
+        <!-- <div class="plan-price"><sup>$</sup>49</div> -->
         <div class="plan-period">per month · cancel anytime</div>
         <hr class="plan-divider">
         <div class="plan-features">
@@ -1647,10 +2249,10 @@ footer {
 
       <!-- VIP - Featured -->
       <div class="plan-card featured reveal reveal-delay-1">
-        <div class="crown-float">👑</div>
+        <div class="crown-float"><i class="fas fa-crown"></i></div>
         <div class="plan-badge">Most Popular</div>
         <div class="plan-name">VIP Access</div>
-        <div class="plan-price"><sup>$</sup>99</div>
+        <!-- <div class="plan-price"><sup>$</sup>99</div> -->
         <div class="plan-period">per month · cancel anytime</div>
         <hr class="plan-divider" style="border-color:rgba(77,166,255,0.18);">
         <div class="plan-features">
@@ -1671,7 +2273,7 @@ footer {
       <!-- Lifetime -->
       <div class="plan-card reveal reveal-delay-2">
         <div class="plan-name">Lifetime</div>
-        <div class="plan-price" style="color:var(--gold);"><sup>$</sup>499</div>
+        <!-- <div class="plan-price" style="color:var(--gold);"><sup>$</sup>499</div> -->
         <div class="plan-period">one-time · forever access</div>
         <hr class="plan-divider">
         <div class="plan-features">
@@ -1768,6 +2370,90 @@ footer {
   </div>
 </section>
 
+<!-- ══════════════════════ REGULATORY COMPLIANCE ══════════════════════ -->
+<section id="regulatory" class="regulatory-section">
+  <div class="container">
+
+    <div class="regulatory-header reveal">
+      <div class="section-eyebrow">Regulatory Compliance</div>
+      <h2 class="section-title">Trusted By <span>Leading<br>Authorities</span></h2>
+      <p class="section-body">Alpha Traders Group is recognized and approved by the most respected regulatory bodies, ensuring your investments are fully protected.</p>
+    </div>
+
+    <!-- Top 4 in a 2x2 grid -->
+    <div class="regulatory-grid reveal">
+
+      <div class="regulatory-card">
+        <div class="regulatory-logo">
+          <img src="assets/reg-ftc.png" alt="FTC" onerror="this.style.display='none';this.parentElement.querySelector('i').style.display='block';">
+          <i class="fas fa-landmark" style="display:none;"></i>
+        </div>
+        <div>
+          <div class="regulatory-name">Federal Trade Commission</div>
+          <div class="regulatory-sub">Consumer Protection</div>
+        </div>
+      </div>
+
+      <div class="regulatory-card">
+        <div class="regulatory-logo">
+          <img src="assets/reg-fcc.png" alt="FCC" onerror="this.style.display='none';this.parentElement.querySelector('i').style.display='block';">
+          <i class="fas fa-broadcast-tower" style="display:none;"></i>
+        </div>
+        <div>
+          <div class="regulatory-name">Federal Communications Commission</div>
+          <div class="regulatory-sub">Communications Regulation</div>
+        </div>
+      </div>
+
+      <div class="regulatory-card">
+        <div class="regulatory-logo">
+          <img src="assets/reg-doj.png" alt="DOJ" onerror="this.style.display='none';this.parentElement.querySelector('i').style.display='block';">
+          <i class="fas fa-gavel" style="display:none;"></i>
+        </div>
+        <div>
+          <div class="regulatory-name">Department of Justice</div>
+          <div class="regulatory-sub">Antitrust Division</div>
+        </div>
+      </div>
+
+      <div class="regulatory-card">
+        <div class="regulatory-logo">
+          <img src="assets/reg-copyright.png" alt="US Copyright Office" onerror="this.style.display='none';this.parentElement.querySelector('i').style.display='block';">
+          <i class="fas fa-copyright" style="display:none;"></i>
+        </div>
+        <div>
+          <div class="regulatory-name">United States Copyright Office</div>
+          <div class="regulatory-sub">Intellectual Property</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 5th centered card -->
+    <div class="regulatory-center reveal">
+      <div class="regulatory-card">
+        <div class="regulatory-logo">
+          <img src="assets/reg-icann.png" alt="ICANN" onerror="this.style.display='none';this.parentElement.querySelector('i').style.display='block';">
+          <i class="fas fa-globe" style="display:none;"></i>
+        </div>
+        <div>
+          <div class="regulatory-name">ICANN</div>
+          <div class="regulatory-sub">Internet Corporation for Assigned Names and Numbers</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust badges -->
+    <div class="regulatory-badges reveal">
+      <div class="reg-badge"><i class="fas fa-shield-halved"></i> SSL Encrypted</div>
+      <div class="reg-badge"><i class="fas fa-scale-balanced"></i> Fully Compliant</div>
+      <div class="reg-badge"><i class="fas fa-lock"></i> Fund Segregation</div>
+      <div class="reg-badge"><i class="fas fa-user-shield"></i> Investor Protected</div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ══════════════════════ DISCLAIMER ══════════════════════ -->
 <div class="disclaimer-strip">
   <div class="container">
@@ -1801,8 +2487,9 @@ footer {
         <h5>Navigate</h5>
         <ul class="footer-links">
           <li><a href="#features">Features</a></li>
+          <li><a href="#products">Products</a></li>
           <li><a href="#why">Why Us</a></li>
-          <li><a href="#results">Results</a></li>
+          <li><a href="#reviews">Reviews</a></li>
           <li><a href="#pricing">Pricing</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
