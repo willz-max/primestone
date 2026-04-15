@@ -85,31 +85,32 @@ ul { list-style: none; }
 .container { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 24px; }
 
 /* ═══════════════════════════════════════════════════
-   NAV — FULLY RESPONSIVE
+   NAV — CLASSIC FULL-WIDTH FIXED
 ═══════════════════════════════════════════════════ */
 nav {
   position: fixed;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 9999;
-  width: min(calc(100% - 32px), 1100px);
-  height: 60px;
+  width: 100%;
+  height: var(--nav-h);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 10px 0 18px;
-  background: rgba(13,17,23,0.85);
+  padding: 0 32px;
+  background: rgba(13,17,23,0.92);
   backdrop-filter: blur(28px) saturate(200%);
   -webkit-backdrop-filter: blur(28px) saturate(200%);
-  border: 1px solid var(--border3);
-  border-radius: var(--radius-pill);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(77,166,255,0.06) inset;
-  transition: box-shadow var(--trans);
+  border-bottom: 1px solid var(--border2);
+  border-radius: 0;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.45);
+  transition: background var(--trans), box-shadow var(--trans);
 }
 
 nav.scrolled {
-  box-shadow: 0 12px 48px rgba(0,0,0,0.7), 0 0 0 1px rgba(77,166,255,0.1) inset;
+  background: rgba(13,17,23,0.98);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.7);
 }
 
 .nav-logo {
@@ -210,10 +211,11 @@ nav.scrolled {
 .nav-mobile-drawer {
   display: none;
   position: fixed;
-  top: 88px;           /* sits just below the floating nav */
-  left: 50%;
-  transform: translateX(-50%) translateY(-12px);
-  width: min(calc(100% - 32px), 400px);
+  top: var(--nav-h);   /* sits just below the full-width nav */
+  left: auto;
+  right: 16px;
+  transform: translateY(-12px);
+  width: min(calc(100% - 32px), 300px);
   background: rgba(19,25,32,0.97);
   backdrop-filter: blur(28px) saturate(200%);
   -webkit-backdrop-filter: blur(28px) saturate(200%);
@@ -231,7 +233,7 @@ nav.scrolled {
   display: flex;
   opacity: 1;
   pointer-events: all;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
 }
 
 /* Drawer header row with close button */
@@ -2373,7 +2375,11 @@ footer {
 
 <!-- ══════════════════════ TICKER TAPE — TRADINGVIEW ══════════════════════ -->
 <div class="ticker-section">
-  <div class="tv-ticker-wrap" id="tv-ticker"></div>
+  <div class="tv-ticker-wrap">
+    <div class="tradingview-widget-container" id="tv-ticker">
+      <div class="tradingview-widget-container__widget"></div>
+    </div>
+  </div>
 </div>
 
 <!-- ══════════════════════ WHAT YOU GET ══════════════════════ -->
@@ -3457,26 +3463,28 @@ window.addEventListener('scroll', () => {
 
 /* ─── TradingView Ticker Tape ─── */
 (function() {
-  var container = document.getElementById('tv-ticker');
+  var container = document.querySelector('#tv-ticker .tradingview-widget-container__widget');
   if (!container) return;
   var script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js';
   script.async = true;
-  script.innerHTML = JSON.stringify({
+  script.textContent = JSON.stringify({
     "symbols": [
-      { "proName": "BITSTAMP:BTCUSD",   "title": "Bitcoin" },
-      { "proName": "BITSTAMP:ETHUSD",   "title": "Ethereum" },
-      { "proName": "FOREXCOM:SPXUSD",   "title": "S&P 500" },
-      { "proName": "FOREXCOM:NSXUSD",   "title": "Nasdaq 100" },
-      { "proName": "COMEX:GC1!",        "title": "Gold" },
-      { "proName": "NYMEX:CL1!",        "title": "Oil WTI" },
       { "proName": "FX_IDC:EURUSD",     "title": "EUR/USD" },
       { "proName": "FX_IDC:GBPUSD",     "title": "GBP/USD" },
-      { "proName": "COINBASE:SOLUSD",   "title": "Solana" },
-      { "proName": "BINANCE:BNBUSDT",   "title": "BNB" },
+      { "proName": "FX_IDC:USDJPY",     "title": "USD/JPY" },
+      { "proName": "FX_IDC:AUDUSD",     "title": "AUD/USD" },
+      { "proName": "FX_IDC:USDCHF",     "title": "USD/CHF" },
+      { "proName": "FX_IDC:USDCAD",     "title": "USD/CAD" },
+      { "proName": "FX_IDC:NZDUSD",     "title": "NZD/USD" },
       { "proName": "NASDAQ:AAPL",       "title": "Apple" },
-      { "proName": "NASDAQ:NVDA",       "title": "NVIDIA" }
+      { "proName": "NASDAQ:NVDA",       "title": "NVIDIA" },
+      { "proName": "NASDAQ:MSFT",       "title": "Microsoft" },
+      { "proName": "NYSE:JPM",          "title": "JPMorgan" },
+      { "proName": "FOREXCOM:SPXUSD",   "title": "S&P 500" },
+      { "proName": "FOREXCOM:NSXUSD",   "title": "Nasdaq 100" },
+      { "proName": "COMEX:GC1!",        "title": "Gold" }
     ],
     "showSymbolLogo": true,
     "isTransparent": true,
